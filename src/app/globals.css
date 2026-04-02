@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #E8E8F0;
+  background: #0F0F1A;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
