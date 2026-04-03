@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const features = [
   {
     title: "Visual Composer",
@@ -40,6 +42,17 @@ const features = [
     ),
   },
   {
+    title: "Image to Prompt",
+    description:
+      "Upload any image and get an optimized AI prompt instantly. Works with Midjourney, DALL-E, Stable Diffusion, Flux, and more.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
+      </svg>
+    ),
+    href: "/image-to-prompt",
+  },
+  {
     title: "Brand Kits",
     description:
       "Save reusable style presets — colors, moods, camera settings — and apply them to any prompt with one click.",
@@ -79,20 +92,26 @@ export default function Features() {
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="group rounded-2xl bg-background p-6 sm:p-8 card-shadow card-shadow-hover transition-all duration-300 hover:scale-[1.02] border border-transparent dark:border-border"
-            >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
-                {f.icon}
+          {features.map((f) => {
+            const card = (
+              <div
+                className="group rounded-2xl bg-background p-6 sm:p-8 card-shadow card-shadow-hover transition-all duration-300 hover:scale-[1.02] border border-transparent dark:border-border"
+              >
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
+                  {f.icon}
+                </div>
+                <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {f.description}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {f.description}
-              </p>
-            </div>
-          ))}
+            );
+            return "href" in f && f.href ? (
+              <Link key={f.title} href={f.href as string}>{card}</Link>
+            ) : (
+              <div key={f.title}>{card}</div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -31,6 +31,9 @@ export default function Navbar() {
           <a href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
             Fixer
           </a>
+          <a href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
+            Image to Prompt
+          </a>
           <a href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
             A/B Test
           </a>
@@ -69,6 +72,9 @@ export default function Navbar() {
           </a>
           <a href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileOpen(false)}>
             Fixer
+          </a>
+          <a href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileOpen(false)}>
+            Image to Prompt
           </a>
           <a href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileOpen(false)}>
             A/B Test

@@ -319,7 +319,7 @@ function FixerPageInner() {
 
         {/* Empty state hint */}
         {!result && !loading && !error && (
-          <div className="mt-16 text-center text-sm text-muted">
+          <div className="mt-16 text-center text-sm text-muted space-y-3">
             <p>
               Try something like:{" "}
               <button
@@ -332,6 +332,12 @@ function FixerPageInner() {
               >
                 &quot;a futuristic city with flying cars and neon lights at night&quot;
               </button>
+            </p>
+            <p>
+              Have an image instead?{" "}
+              <Link href="/image-to-prompt" className="text-primary hover:underline font-medium">
+                Try Image to Prompt &rarr;
+              </Link>
             </p>
           </div>
         )}
