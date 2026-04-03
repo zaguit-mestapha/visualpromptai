@@ -66,44 +66,20 @@ const tiers = [
 
 export default function PricingPage() {
   const [annual, setAnnual] = useState(false);
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 
-  const handleCheckout = async (planKey: string) => {
+  const handleClick = (planKey: string) => {
     if (planKey === "free") {
       router.push("/signup");
-      return;
-    }
-
-    if (!user) {
-      router.push("/login");
-      return;
-    }
-
-    setLoadingPlan(planKey);
-    try {
-      const res = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          plan: planKey,
-          billing: annual ? "annual" : "monthly",
-          userId: user.id,
-          email: user.email,
-        }),
-      });
-
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
+    } else if (planKey === "pro") {
+      if (!user) {
+        router.push("/login?redirect=pricing");
       } else {
-        alert(data.error || "Something went wrong");
+        alert("Stripe payment coming soon! For now, enjoy all features for free during beta.");
       }
-    } catch {
-      alert("Failed to start checkout");
-    } finally {
-      setLoadingPlan(null);
+    } else if (planKey === "team") {
+      window.location.href = "mailto:contact@visualpromptai.com";
     }
   };
 
@@ -176,7 +152,6 @@ export default function PricingPage() {
             const displayPrice = annual && tier.annualPrice > 0
               ? `$${Math.round(tier.annualPrice / 12)}`
               : `$${tier.monthlyPrice}`;
-            const isLoading = loadingPlan === tier.key;
 
             return (
               <div
@@ -224,15 +199,14 @@ export default function PricingPage() {
                 </ul>
 
                 <button
-                  onClick={() => handleCheckout(tier.key)}
-                  disabled={isLoading}
-                  className={`mt-8 w-full rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 disabled:opacity-50 ${
+                  onClick={() => handleClick(tier.key)}
+                  className={`mt-8 w-full cursor-pointer rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 ${
                     tier.highlighted
                       ? "bg-primary text-white shadow-lg shadow-primary/20 hover:opacity-90"
                       : "border border-border bg-surface text-foreground hover:bg-surface-light"
                   }`}
                 >
-                  {isLoading ? "Loading..." : tier.cta}
+                  {tier.cta}
                 </button>
               </div>
             );

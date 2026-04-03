@@ -1,5 +1,11 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/AuthProvider";
+
 const tiers = [
   {
+    key: "free",
     name: "Free",
     price: "$0",
     period: "forever",
@@ -14,6 +20,7 @@ const tiers = [
     highlighted: false,
   },
   {
+    key: "pro",
     name: "Pro",
     price: "$12",
     period: "/mo",
@@ -30,6 +37,7 @@ const tiers = [
     highlighted: true,
   },
   {
+    key: "team",
     name: "Team",
     price: "$29",
     period: "/mo per seat",
@@ -48,6 +56,23 @@ const tiers = [
 ];
 
 export default function Pricing() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleClick = (tierKey: string) => {
+    if (tierKey === "free") {
+      router.push("/signup");
+    } else if (tierKey === "pro") {
+      if (!user) {
+        router.push("/login?redirect=pricing");
+      } else {
+        alert("Stripe payment coming soon! For now, enjoy all features for free during beta.");
+      }
+    } else if (tierKey === "team") {
+      window.location.href = "mailto:contact@visualpromptai.com";
+    }
+  };
+
   return (
     <section id="pricing" className="relative py-20 sm:py-28">
       {/* Subtle glow */}
@@ -106,7 +131,8 @@ export default function Pricing() {
               </ul>
 
               <button
-                className={`mt-8 w-full rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 ${
+                onClick={() => handleClick(tier.key)}
+                className={`mt-8 w-full cursor-pointer rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 ${
                   tier.highlighted
                     ? "bg-primary text-white shadow-lg shadow-primary/20 hover:opacity-90 hover:shadow-primary/30"
                     : "border border-border bg-surface text-foreground hover:bg-surface-light"
