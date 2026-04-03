@@ -22,7 +22,7 @@ export default function SignUpPage() {
     setError("");
 
     if (isDisposableEmail(email)) {
-      setError("Please use a permanent email address. Temporary emails are not allowed.");
+      setError("Temporary or disposable email addresses are not allowed. Please use a permanent email like Gmail, Outlook, Yahoo, or ProtonMail.");
       setLoading(false);
       return;
     }
