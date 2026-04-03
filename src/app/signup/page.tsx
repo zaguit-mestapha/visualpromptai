@@ -4,7 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { isDisposableEmail } from "@/lib/disposable-emails";
 import ThemeToggle from "@/components/ThemeToggle";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -18,6 +20,12 @@ export default function SignUpPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    if (isDisposableEmail(email)) {
+      setError("Please use a permanent email address. Temporary emails are not allowed.");
+      setLoading(false);
+      return;
+    }
 
     const { error } = await supabase.auth.signUp({
       email,
@@ -126,15 +134,12 @@ export default function SignUpPage() {
               <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-foreground">
                 Password
               </label>
-              <input
+              <PasswordInput
                 id="password"
-                type="password"
-                required
-                minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="At least 6 characters"
-                className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                minLength={6}
               />
             </div>
 

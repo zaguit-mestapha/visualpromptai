@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import ThemeToggle from "@/components/ThemeToggle";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -16,8 +17,6 @@ export default function ResetPasswordPage() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    // Supabase automatically picks up the token from the URL hash
-    // and establishes a session via onAuthStateChange
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event) => {
         if (event === "PASSWORD_RECOVERY") {
@@ -100,30 +99,24 @@ export default function ResetPasswordPage() {
                   <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-foreground">
                     New password
                   </label>
-                  <input
+                  <PasswordInput
                     id="password"
-                    type="password"
-                    required
-                    minLength={6}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="At least 6 characters"
-                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                    minLength={6}
                   />
                 </div>
                 <div>
                   <label htmlFor="confirm" className="mb-1.5 block text-sm font-semibold text-foreground">
                     Confirm password
                   </label>
-                  <input
+                  <PasswordInput
                     id="confirm"
-                    type="password"
-                    required
-                    minLength={6}
                     value={confirm}
                     onChange={(e) => setConfirm(e.target.value)}
                     placeholder="Repeat your password"
-                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                    minLength={6}
                   />
                 </div>
 
