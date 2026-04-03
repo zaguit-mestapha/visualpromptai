@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import AuthBanner from "@/components/AuthBanner";
+import UserMenu from "@/components/UserMenu";
 
 const MODELS = ["Midjourney", "DALL-E 3", "Flux", "Stable Diffusion", "Leonardo AI"] as const;
 
@@ -209,6 +211,7 @@ export default function ABTestPage() {
             <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">Fixer</Link>
             <span className="rounded-md border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">A/B Test</span>
             <ThemeToggle />
+            <UserMenu />
           </div>
           <div className="flex items-center gap-3 sm:hidden">
             <ThemeToggle />
@@ -232,6 +235,7 @@ export default function ABTestPage() {
           </div>
         </div>
       </nav>
+      <AuthBanner />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Header */}

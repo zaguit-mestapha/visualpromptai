@@ -3,6 +3,8 @@
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import AuthBanner from "@/components/AuthBanner";
+import UserMenu from "@/components/UserMenu";
 
 /* ── category definitions ── */
 const CATEGORIES = {
@@ -218,6 +220,7 @@ export default function ComposerPage() {
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors">A/B Test</Link>
             <span className="rounded-md border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Composer</span>
             <ThemeToggle />
+            <UserMenu />
           </div>
           <div className="flex items-center gap-3 sm:hidden">
             <ThemeToggle />
@@ -241,6 +244,7 @@ export default function ComposerPage() {
           </div>
         </div>
       </nav>
+      <AuthBanner />
 
       <div className="pt-16 min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[320px_1fr_320px]">
         {/* ── LEFT SIDEBAR: Building Blocks ── */}

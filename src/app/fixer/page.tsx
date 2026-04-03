@@ -4,6 +4,8 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import AuthBanner from "@/components/AuthBanner";
+import UserMenu from "@/components/UserMenu";
 
 const MODELS = ["Midjourney", "DALL-E", "Flux", "Stable Diffusion"] as const;
 
@@ -157,6 +159,7 @@ function FixerPageInner() {
               Fixer
             </span>
             <ThemeToggle />
+            <UserMenu />
           </div>
           <div className="flex items-center gap-3 sm:hidden">
             <ThemeToggle />
@@ -180,6 +183,7 @@ function FixerPageInner() {
           </div>
         </div>
       </nav>
+      <AuthBanner />
 
       <main className="mx-auto max-w-5xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Header */}

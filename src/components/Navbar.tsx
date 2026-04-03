@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,12 +35,7 @@ export default function Navbar() {
             A/B Test
           </a>
           <ThemeToggle />
-          <a
-            href="#waitlist"
-            className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95"
-          >
-            Join Waitlist
-          </a>
+          <UserMenu />
         </div>
 
         {/* Mobile: theme toggle + hamburger */}
@@ -77,13 +73,9 @@ export default function Navbar() {
           <a href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileOpen(false)}>
             A/B Test
           </a>
-          <a
-            href="#waitlist"
-            className="rounded-xl bg-primary px-5 py-2.5 text-center text-sm font-semibold text-white transition-all hover:opacity-90"
-            onClick={() => setMobileOpen(false)}
-          >
-            Join Waitlist
-          </a>
+          <div className="pt-2 border-t border-border">
+            <UserMenu />
+          </div>
         </div>
       </div>
     </nav>
