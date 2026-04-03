@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const MODELS = ["Midjourney", "DALL-E", "Flux", "Stable Diffusion"] as const;
 
@@ -13,27 +14,28 @@ interface FixResult {
   model: string;
 }
 
-function ScoreRing({ score }: { score: number }) {
-  const radius = 28;
+function ScoreRing({ score, size = 72 }: { score: number; size?: number }) {
+  const radius = (size - 16) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
   const color =
     score >= 75 ? "#00C9A7" : score >= 50 ? "#F59E0B" : "#EF4444";
+  const center = size / 2;
 
   return (
     <div className="relative inline-flex items-center justify-center">
-      <svg width="72" height="72" className="-rotate-90">
+      <svg width={size} height={size} className="-rotate-90">
         <circle
-          cx="36"
-          cy="36"
+          cx={center}
+          cy={center}
           r={radius}
           fill="none"
-          stroke="#252542"
+          stroke="var(--ring-track)"
           strokeWidth="5"
         />
         <circle
-          cx="36"
-          cy="36"
+          cx={center}
+          cy={center}
           r={radius}
           fill="none"
           stroke={color}
@@ -44,7 +46,7 @@ function ScoreRing({ score }: { score: number }) {
           className="transition-all duration-700 ease-out"
         />
       </svg>
-      <span className="absolute text-lg font-bold" style={{ color }}>
+      <span className={`absolute font-bold ${size <= 56 ? "text-sm" : "text-lg"}`} style={{ color }}>
         {score}
       </span>
     </div>
@@ -63,7 +65,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-surface-light px-3 py-1.5 text-xs font-medium text-muted transition-all hover:border-primary/30 hover:text-foreground active:scale-95"
+      className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted transition-all hover:text-foreground active:scale-95"
     >
       {copied ? (
         <>
@@ -90,6 +92,7 @@ export default function FixerPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<FixResult | null>(null);
   const [error, setError] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleFix = async () => {
     if (!prompt.trim()) return;
@@ -122,36 +125,65 @@ export default function FixerPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
-            Visual<span className="text-primary">Prompt</span>AI
+            <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
-          <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
-            Free Tool
-          </span>
+          <div className="hidden items-center gap-4 sm:flex">
+            <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
+              Composer
+            </Link>
+            <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
+              A/B Test
+            </Link>
+            <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
+              Fixer
+            </span>
+            <ThemeToggle />
+          </div>
+          <div className="flex items-center gap-3 sm:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex flex-col gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+            </button>
+          </div>
+        </div>
+        <div className={`border-t border-border bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
+          <div className="flex flex-col gap-4 px-6 py-4">
+            <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
+            <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
+            <span className="text-sm text-accent font-semibold">Fixer (current)</span>
+          </div>
         </div>
       </nav>
 
-      <main className="mx-auto max-w-5xl px-6 pt-28 pb-20">
+      <main className="mx-auto max-w-5xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold sm:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
             Prompt{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Fixer
             </span>
           </h1>
-          <p className="mt-3 text-muted">
+          <p className="mt-3 text-muted leading-relaxed">
             Paste your rough prompt, pick a model, and get an optimized version
             instantly.
           </p>
         </div>
 
         {/* Input section */}
-        <div className="mt-10 rounded-2xl border border-white/5 bg-surface p-6">
-          <label htmlFor="prompt" className="mb-2 block text-sm font-medium">
+        <div className="mt-8 sm:mt-10 rounded-2xl bg-background p-4 sm:p-8 card-shadow border border-transparent dark:border-border">
+          <label htmlFor="prompt" className="mb-2 block text-sm font-semibold text-foreground">
             Your prompt
           </label>
           <textarea
@@ -160,12 +192,12 @@ export default function FixerPage() {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g. a cat sitting on a windowsill at sunset..."
-            className="w-full resize-none rounded-xl border border-white/10 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+            className="w-full resize-none rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
           />
 
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex-1 sm:max-w-[220px]">
-              <label htmlFor="model" className="mb-2 block text-sm font-medium">
+              <label htmlFor="model" className="mb-2 block text-sm font-semibold text-foreground">
                 Target model
               </label>
               <select
@@ -174,7 +206,7 @@ export default function FixerPage() {
                 onChange={(e) =>
                   setModel(e.target.value as (typeof MODELS)[number])
                 }
-                className="w-full rounded-xl border border-white/10 bg-background px-4 py-3 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
+                className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
               >
                 {MODELS.map((m) => (
                   <option key={m} value={m}>
@@ -187,7 +219,7 @@ export default function FixerPage() {
             <button
               onClick={handleFix}
               disabled={loading || !prompt.trim()}
-              className="rounded-full bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 hover:brightness-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+              className="rounded-xl bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -195,7 +227,7 @@ export default function FixerPage() {
                     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
                     <path d="M4 12a8 8 0 0 1 8-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75" />
                   </svg>
-                  Fixing…
+                  Fixing...
                 </span>
               ) : (
                 "Fix My Prompt"
@@ -206,7 +238,7 @@ export default function FixerPage() {
 
         {/* Error */}
         {error && (
-          <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm text-red-400">
+          <div className="mt-6 rounded-xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 px-5 py-3 text-sm text-red-600 dark:text-red-400">
             {error}
           </div>
         )}
@@ -215,7 +247,7 @@ export default function FixerPage() {
         {result && (
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {/* Original */}
-            <div className="rounded-2xl border border-white/5 bg-surface p-6">
+            <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-transparent dark:border-border">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
                   Original
@@ -225,10 +257,10 @@ export default function FixerPage() {
               <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground/80">
                 {result.original}
               </p>
-              <div className="mt-6 flex items-center gap-3 border-t border-white/5 pt-4">
-                <ScoreRing score={result.originalScore} />
+              <div className="mt-6 flex items-center gap-3 border-t border-border pt-4">
+                <ScoreRing score={result.originalScore} size={56} />
                 <div>
-                  <p className="text-sm font-medium">Quality Score</p>
+                  <p className="text-sm font-semibold text-foreground">Quality Score</p>
                   <p className="text-xs text-muted">
                     {result.originalScore < 50
                       ? "Needs improvement"
@@ -241,7 +273,7 @@ export default function FixerPage() {
             </div>
 
             {/* Fixed */}
-            <div className="rounded-2xl border border-primary/30 bg-surface-light p-6 shadow-lg shadow-primary/5">
+            <div className="rounded-2xl bg-background p-4 sm:p-6 border-2 border-primary/20 card-shadow">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">
                   Optimized for {result.model}
@@ -251,10 +283,10 @@ export default function FixerPage() {
               <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground">
                 {result.fixed}
               </p>
-              <div className="mt-6 flex items-center gap-3 border-t border-white/5 pt-4">
-                <ScoreRing score={result.fixedScore} />
+              <div className="mt-6 flex items-center gap-3 border-t border-border pt-4">
+                <ScoreRing score={result.fixedScore} size={56} />
                 <div>
-                  <p className="text-sm font-medium">Quality Score</p>
+                  <p className="text-sm font-semibold text-foreground">Quality Score</p>
                   <p className="text-xs text-muted">
                     {result.fixedScore >= 75
                       ? "Ready to generate"
@@ -277,7 +309,7 @@ export default function FixerPage() {
                     "a futuristic city with flying cars and neon lights at night"
                   )
                 }
-                className="text-primary hover:underline"
+                className="text-primary hover:underline font-medium"
               >
                 &quot;a futuristic city with flying cars and neon lights at night&quot;
               </button>

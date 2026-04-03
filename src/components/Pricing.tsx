@@ -49,31 +49,31 @@ const tiers = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative py-24">
+    <section id="pricing" className="relative py-20 sm:py-28">
       {/* Subtle glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[700px] rounded-full bg-primary/10 blur-[150px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[700px] rounded-full bg-primary/5 dark:bg-primary/10 blur-[150px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-accent">
             Pricing
           </p>
-          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
             Simple, transparent pricing
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted">
+          <p className="mx-auto mt-4 max-w-xl text-muted leading-relaxed">
             Start free and upgrade as your creative workflow grows.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 sm:grid-cols-1 md:grid-cols-3">
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`relative rounded-2xl border p-8 transition-all ${
+              className={`relative rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
                 tier.highlighted
-                  ? "border-primary/50 bg-surface-light shadow-lg shadow-primary/10 scale-[1.02]"
-                  : "border-white/5 bg-surface hover:border-white/10"
+                  ? "bg-background card-shadow md:scale-[1.02] border-2 border-primary/30 dark:border-primary/50"
+                  : "bg-background card-shadow border border-transparent dark:border-border hover:scale-[1.02]"
               }`}
             >
               {tier.highlighted && (
@@ -81,16 +81,16 @@ export default function Pricing() {
                   Most Popular
                 </div>
               )}
-              <h3 className="text-lg font-semibold">{tier.name}</h3>
+              <h3 className="text-lg font-semibold text-foreground">{tier.name}</h3>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold">{tier.price}</span>
+                <span className="text-4xl font-semibold tracking-[-0.02em] text-foreground">{tier.price}</span>
                 <span className="text-sm text-muted">{tier.period}</span>
               </div>
               <p className="mt-2 text-sm text-muted">{tier.description}</p>
 
               <ul className="mt-8 space-y-3">
                 {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm">
+                  <li key={f} className="flex items-start gap-3 text-sm text-foreground/80">
                     <svg
                       className="mt-0.5 h-4 w-4 shrink-0 text-accent"
                       fill="none"
@@ -106,10 +106,10 @@ export default function Pricing() {
               </ul>
 
               <button
-                className={`mt-8 w-full rounded-full py-3 text-sm font-semibold transition-all active:scale-95 ${
+                className={`mt-8 w-full rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 ${
                   tier.highlighted
-                    ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:brightness-110"
-                    : "border border-white/10 bg-surface-light text-foreground hover:border-primary/30 hover:bg-primary/10"
+                    ? "bg-primary text-white shadow-lg shadow-primary/20 hover:opacity-90 hover:shadow-primary/30"
+                    : "border border-border bg-surface text-foreground hover:bg-surface-light"
                 }`}
               >
                 {tier.cta}

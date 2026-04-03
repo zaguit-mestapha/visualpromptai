@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 /* ── category definitions ── */
 const CATEGORIES = {
@@ -85,29 +86,30 @@ const CATEGORY_COLORS: Record<CategoryKey, string> = {
 };
 
 const CATEGORY_BORDERS: Record<CategoryKey, string> = {
-  subject: "border-violet-500/40",
-  style: "border-fuchsia-500/40",
-  lighting: "border-amber-400/40",
-  camera: "border-cyan-400/40",
-  color: "border-emerald-400/40",
-  composition: "border-rose-400/40",
-  custom: "border-indigo-400/40",
+  subject: "border-violet-500/30",
+  style: "border-fuchsia-500/30",
+  lighting: "border-amber-400/30",
+  camera: "border-cyan-400/30",
+  color: "border-emerald-400/30",
+  composition: "border-rose-400/30",
+  custom: "border-indigo-400/30",
 };
 
 /* ── Score Ring ── */
-function ScoreRing({ score }: { score: number }) {
-  const radius = 38;
+function ScoreRing({ score, size = 96 }: { score: number; size?: number }) {
+  const radius = (size - 20) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
   const color = score >= 75 ? "#00C9A7" : score >= 50 ? "#F59E0B" : "#EF4444";
+  const center = size / 2;
 
   return (
     <div className="relative inline-flex items-center justify-center">
-      <svg width="96" height="96" className="-rotate-90">
-        <circle cx="48" cy="48" r={radius} fill="none" stroke="#252542" strokeWidth="6" />
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={center} cy={center} r={radius} fill="none" stroke="var(--ring-track)" strokeWidth="6" />
         <circle
-          cx="48"
-          cy="48"
+          cx={center}
+          cy={center}
           r={radius}
           fill="none"
           stroke={color}
@@ -118,7 +120,7 @@ function ScoreRing({ score }: { score: number }) {
           className="transition-all duration-700 ease-out"
         />
       </svg>
-      <span className="absolute text-2xl font-bold" style={{ color }}>
+      <span className={`absolute font-bold ${size <= 72 ? "text-lg" : "text-2xl"}`} style={{ color }}>
         {score}
       </span>
     </div>
@@ -139,6 +141,7 @@ export default function ComposerPage() {
   const [fixing, setFixing] = useState(false);
   const [fixResult, setFixResult] = useState<{ fixed: string; fixedScore: number } | null>(null);
   const [fixError, setFixError] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Accept subject from A/B Test "Use in Composer" button
   useEffect(() => {
@@ -202,28 +205,46 @@ export default function ComposerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-surface">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
-            Visual<span className="text-primary">Prompt</span>AI
+            <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/fixer" className="text-sm text-muted hover:text-foreground transition-colors">
-              Fixer
-            </Link>
-            <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              Composer
-            </span>
+          <div className="hidden items-center gap-4 sm:flex">
+            <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">Fixer</Link>
+            <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors">A/B Test</Link>
+            <span className="rounded-md border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Composer</span>
+            <ThemeToggle />
+          </div>
+          <div className="flex items-center gap-3 sm:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex flex-col gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+            </button>
+          </div>
+        </div>
+        <div className={`border-t border-border bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
+          <div className="flex flex-col gap-4 px-6 py-4">
+            <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Fixer</Link>
+            <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
+            <span className="text-sm text-primary font-semibold">Composer (current)</span>
           </div>
         </div>
       </nav>
 
-      <div className="flex pt-16 min-h-screen">
+      <div className="pt-16 min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[320px_1fr_320px]">
         {/* ── LEFT SIDEBAR: Building Blocks ── */}
-        <aside className="w-80 shrink-0 border-r border-white/5 bg-surface/50 p-5 overflow-y-auto h-[calc(100vh-4rem)] sticky top-16">
+        <aside className="md:col-span-1 border-b md:border-b-0 md:border-r border-border bg-background p-4 sm:p-5 md:overflow-y-auto md:h-[calc(100vh-4rem)] md:sticky md:top-16">
           <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-5">
             Building Blocks
           </h2>
@@ -232,7 +253,7 @@ export default function ComposerPage() {
             {(Object.entries(CATEGORIES) as [CategoryKey, (typeof CATEGORIES)[CategoryKey]][]).map(
               ([key, cat]) => (
                 <div key={key} className="group">
-                  <label className="mb-1.5 flex items-center gap-2 text-sm font-medium">
+                  <label className="mb-1.5 flex items-center gap-2 text-sm font-semibold text-foreground">
                     <span className={`inline-block h-2 w-2 rounded-full bg-gradient-to-r ${CATEGORY_COLORS[key]}`} />
                     {cat.label}
                   </label>
@@ -243,19 +264,17 @@ export default function ComposerPage() {
                       value={blocks[key]}
                       onChange={(e) => setBlock(key, e.target.value)}
                       placeholder={cat.placeholder}
-                      className="w-full rounded-lg border border-white/10 bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                      className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   ) : (
                     <select
                       value={blocks[key]}
                       onChange={(e) => setBlock(key, e.target.value)}
-                      className="w-full rounded-lg border border-white/10 bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
+                      className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
                     >
                       <option value="">Select {cat.label.toLowerCase()}...</option>
                       {cat.options.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {opt}
-                        </option>
+                        <option key={opt} value={opt}>{opt}</option>
                       ))}
                     </select>
                   )}
@@ -275,21 +294,21 @@ export default function ComposerPage() {
               setBlock("composition", "Rule of Thirds");
               setBlock("custom", "volumetric fog, 8k, ultra detailed");
             }}
-            className="mt-6 w-full rounded-lg border border-white/10 bg-surface-light px-4 py-2.5 text-xs font-medium text-muted hover:text-foreground hover:border-primary/30 transition-all"
+            className="mt-6 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-xs font-semibold text-muted hover:text-foreground transition-all"
           >
             Fill Example Prompt
           </button>
         </aside>
 
         {/* ── CENTER: Canvas ── */}
-        <main className="flex-1 p-8 overflow-y-auto h-[calc(100vh-4rem)]">
+        <main className="md:col-span-1 p-4 sm:p-6 lg:p-8 md:overflow-y-auto md:h-[calc(100vh-4rem)]">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-4">
               Prompt Canvas
             </h2>
 
             {/* Active blocks */}
-            <div className="min-h-[180px] rounded-2xl border border-dashed border-white/10 bg-surface/30 p-5">
+            <div className="min-h-[180px] rounded-2xl border-2 border-dashed border-border bg-background p-5">
               {activeBlocks.length === 0 ? (
                 <div className="flex h-[140px] items-center justify-center text-sm text-muted/60">
                   Select blocks from the sidebar to start composing your prompt
@@ -301,7 +320,7 @@ export default function ComposerPage() {
                     return (
                       <div
                         key={key}
-                        className={`group/card animate-in flex items-start gap-2 rounded-xl border ${CATEGORY_BORDERS[key as CategoryKey]} bg-surface-light px-4 py-3 transition-all hover:scale-[1.02]`}
+                        className={`group/card animate-in flex items-start gap-2 rounded-xl border ${CATEGORY_BORDERS[key as CategoryKey]} bg-surface px-4 py-3 transition-all hover:scale-[1.02] card-shadow`}
                       >
                         <div className="flex-1 min-w-0">
                           <span className="block text-[10px] font-bold uppercase tracking-wider text-muted mb-0.5">
@@ -313,7 +332,7 @@ export default function ComposerPage() {
                         </div>
                         <button
                           onClick={() => removeBlock(key)}
-                          className="mt-0.5 rounded-md p-0.5 text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                          className="mt-0.5 rounded-md p-0.5 text-muted hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-400/10 transition-colors"
                           aria-label={`Remove ${cat.label}`}
                         >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
@@ -340,8 +359,8 @@ export default function ComposerPage() {
                     disabled={!prompt.trim()}
                     className={`rounded-lg px-4 py-2 text-xs font-semibold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed ${
                       exportedModel === m
-                        ? "bg-primary text-white shadow-lg shadow-primary/30"
-                        : "border border-white/10 bg-surface-light text-muted hover:text-foreground hover:border-primary/30"
+                        ? "bg-primary text-white shadow-md shadow-primary/20"
+                        : "border border-border bg-background text-muted hover:text-foreground"
                     }`}
                   >
                     {m}
@@ -359,7 +378,7 @@ export default function ComposerPage() {
                   </span>
                   <button
                     onClick={() => handleCopy(exportedPrompt)}
-                    className="rounded-lg border border-white/10 bg-surface-light px-3 py-1 text-xs font-medium text-muted hover:text-foreground transition-all"
+                    className="rounded-lg border border-border bg-surface px-3 py-1 text-xs font-medium text-muted hover:text-foreground transition-all"
                   >
                     {copied ? "Copied!" : "Copy"}
                   </button>
@@ -379,7 +398,7 @@ export default function ComposerPage() {
                   </span>
                   <button
                     onClick={() => handleCopy(fixResult.fixed)}
-                    className="rounded-lg border border-white/10 bg-surface-light px-3 py-1 text-xs font-medium text-muted hover:text-foreground transition-all"
+                    className="rounded-lg border border-border bg-surface px-3 py-1 text-xs font-medium text-muted hover:text-foreground transition-all"
                   >
                     {copied ? "Copied!" : "Copy"}
                   </button>
@@ -391,7 +410,7 @@ export default function ComposerPage() {
             )}
 
             {fixError && (
-              <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm text-red-400">
+              <div className="mt-4 rounded-xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 px-5 py-3 text-sm text-red-600 dark:text-red-400">
                 {fixError}
               </div>
             )}
@@ -399,13 +418,13 @@ export default function ComposerPage() {
         </main>
 
         {/* ── RIGHT PANEL: Live Preview ── */}
-        <aside className="w-80 shrink-0 border-l border-white/5 bg-surface/50 p-5 overflow-y-auto h-[calc(100vh-4rem)] sticky top-16">
+        <aside className="md:col-span-2 lg:col-span-1 border-t md:border-t lg:border-t-0 lg:border-l border-border bg-background p-4 sm:p-5 md:overflow-y-auto lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16">
           <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-4">
             Live Preview
           </h2>
 
           {/* Prompt text */}
-          <div className="rounded-xl border border-white/5 bg-background p-4 min-h-[120px]">
+          <div className="rounded-xl border border-border bg-surface p-4 min-h-[120px]">
             {prompt.trim() ? (
               <p className="text-sm leading-relaxed text-foreground/90 whitespace-pre-wrap">
                 {prompt}
@@ -416,29 +435,31 @@ export default function ComposerPage() {
           </div>
 
           {/* Quality Score */}
-          <div className="mt-6 flex flex-col items-center">
-            <ScoreRing score={score} />
-            <p className="mt-2 text-sm font-medium">Quality Score</p>
-            <p className="text-xs text-muted text-center mt-1">
-              {score < 30
-                ? "Add more blocks to improve quality"
-                : score < 60
-                  ? "Getting better, keep adding details"
-                  : score < 85
-                    ? "Good prompt, almost complete"
-                    : "Excellent! Ready to generate"}
-            </p>
-            <div className="mt-2 text-xs text-muted">
-              {activeBlocks.length}/{Object.keys(CATEGORIES).length} categories filled
+          <div className="mt-6 flex flex-col items-center md:flex-row md:items-start md:gap-6 lg:flex-col lg:items-center">
+            <ScoreRing score={score} size={80} />
+            <div className="md:flex-1 lg:text-center">
+              <p className="mt-2 md:mt-0 text-sm font-semibold text-foreground">Quality Score</p>
+              <p className="text-xs text-muted text-center md:text-left lg:text-center mt-1">
+                {score < 30
+                  ? "Add more blocks to improve quality"
+                  : score < 60
+                    ? "Getting better, keep adding details"
+                    : score < 85
+                      ? "Good prompt, almost complete"
+                      : "Excellent! Ready to generate"}
+              </p>
+              <div className="mt-2 text-xs text-muted text-center md:text-left lg:text-center">
+                {activeBlocks.length}/{Object.keys(CATEGORIES).length} categories filled
+              </div>
             </div>
           </div>
 
           {/* Action buttons */}
-          <div className="mt-6 space-y-3">
+          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-1">
             <button
               onClick={() => handleCopy(prompt)}
               disabled={!prompt.trim()}
-              className="w-full rounded-xl bg-gradient-to-r from-primary to-accent px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:shadow-primary/40 hover:brightness-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {copied ? "Copied!" : "Copy to Clipboard"}
             </button>
@@ -471,30 +492,13 @@ export default function ComposerPage() {
                 setExportedModel(null);
                 setFixResult(null);
               }}
-              className="w-full rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-muted hover:text-foreground hover:border-red-400/30 transition-all"
+              className="w-full col-span-2 md:col-span-1 lg:col-span-1 rounded-xl border border-border px-4 py-3 text-sm font-medium text-muted hover:text-foreground transition-all"
             >
               Clear All
             </button>
           </div>
         </aside>
       </div>
-
-      {/* animate-in utility */}
-      <style jsx>{`
-        @keyframes animateIn {
-          from {
-            opacity: 0;
-            transform: translateY(8px) scale(0.97);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        :global(.animate-in) {
-          animation: animateIn 0.3s ease-out;
-        }
-      `}</style>
     </div>
   );
 }

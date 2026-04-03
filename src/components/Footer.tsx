@@ -1,25 +1,25 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12">
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <a href="#" className="flex items-center gap-2 text-lg font-bold">
+            <a href="#" className="flex items-center gap-2 text-lg font-semibold">
               <span className="inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent" />
-              Visual<span className="text-primary">Prompt</span>AI
+              <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
             </a>
-            <p className="mt-3 text-sm text-muted">
+            <p className="mt-3 text-sm text-muted leading-relaxed">
               The visual prompt engineering platform for AI image generation.
             </p>
           </div>
 
           {/* Product */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-muted">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
               Product
             </h4>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li><a href="#features" className="text-muted hover:text-foreground transition-colors">Features</a></li>
               <li><a href="#pricing" className="text-muted hover:text-foreground transition-colors">Pricing</a></li>
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">Changelog</a></li>
@@ -29,10 +29,10 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-muted">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
               Resources
             </h4>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">Documentation</a></li>
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">Prompt Guide</a></li>
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">Blog</a></li>
@@ -42,10 +42,10 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-muted">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
               Company
             </h4>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">About</a></li>
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">Privacy</a></li>
               <li><a href="#" className="text-muted hover:text-foreground transition-colors">Terms</a></li>
@@ -54,7 +54,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-xs text-muted">
             &copy; {new Date().getFullYear()} VisualPromptAI. All rights
             reserved.

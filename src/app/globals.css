@@ -2,17 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-bg: 255 255 255;
+  --color-bg-secondary: 245 245 247;
+  --color-text: 29 29 31;
+  --color-text-secondary: 110 110 115;
+  --color-border: 210 210 215;
+  --color-primary: 108 60 225;
+  --color-accent: 0 201 167;
+  --color-surface: 245 245 247;
+  --color-surface-light: 234 234 237;
+  --ring-track: #E5E5EA;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dark {
+  --color-bg: 15 15 26;
+  --color-bg-secondary: 26 26 46;
+  --color-text: 245 245 247;
+  --color-text-secondary: 161 161 166;
+  --color-border: 42 42 62;
+  --color-primary: 108 60 225;
+  --color-accent: 0 201 167;
+  --color-surface: 26 26 46;
+  --color-surface-light: 37 37 66;
+  --ring-track: #252542;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
 * {
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
-  color: #E8E8F0;
-  background: #0F0F1A;
+  color: rgb(var(--color-text));
+  background: rgb(var(--color-bg));
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Smooth layout transition utility */
+@keyframes animateIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-in {
+  animation: animateIn 0.3s ease-out;
+}
+
+/* Mobile menu transition */
+.mobile-menu-enter {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+}
+
+.mobile-menu-enter.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+/* Theme transition for all elements */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Except for transforms and animations that need instant response */
+button, a, input, select, textarea {
+  transition: all 0.3s ease;
+}
+
+/* Card shadow utility */
+.card-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+.card-shadow-hover:hover {
+  box-shadow: var(--shadow-card-hover);
 }

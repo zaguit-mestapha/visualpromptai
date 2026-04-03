@@ -15,28 +15,29 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-32">
-      {/* Background glow */}
+    <section className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-20 md:pt-44 md:pb-32">
+      {/* Background glow - subtle in light, more visible in dark */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-primary/20 blur-[120px]" />
-        <div className="absolute right-1/4 top-40 h-[300px] w-[400px] rounded-full bg-accent/10 blur-[100px]" />
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-primary/5 dark:bg-primary/20 blur-[120px]" />
+        <div className="absolute right-1/4 top-40 h-[300px] w-[400px] rounded-full bg-accent/5 dark:bg-accent/10 blur-[100px]" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 text-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 text-center">
         {/* Badge */}
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm text-primary">
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
           <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
           Now in early access
         </div>
 
-        <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+        <h1 className="mx-auto max-w-4xl text-3xl font-semibold tracking-[-0.02em] sm:text-5xl md:text-6xl lg:text-7xl text-foreground">
           Build AI Image Prompts{" "}
+          <br className="sm:hidden" />
           <span className="bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">
             Visually
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted sm:text-xl">
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted sm:text-xl leading-relaxed">
           Stop guessing. Drag, drop, and optimize prompts for Midjourney,
           DALL-E, Flux, and Stable Diffusion.
         </p>
@@ -44,22 +45,22 @@ export default function Hero() {
         {/* Waitlist form */}
         <div id="waitlist" className="mx-auto mt-10 max-w-md">
           {submitted ? (
-            <div className="rounded-2xl border border-accent/30 bg-accent/10 px-6 py-4 text-accent">
+            <div className="rounded-2xl border border-accent/30 bg-accent/5 px-6 py-4 text-accent font-medium">
               You&apos;re on the list! We&apos;ll be in touch soon.
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex gap-3">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="flex-1 rounded-full border border-white/10 bg-surface px-5 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                className="flex-1 rounded-xl border border-border bg-background px-5 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
               />
               <button
                 type="submit"
-                className="rounded-full bg-gradient-to-r from-primary to-accent px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 hover:brightness-110 active:scale-95"
+                className="rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95"
               >
                 Join Waitlist
               </button>
@@ -71,10 +72,10 @@ export default function Hero() {
         </div>
 
         {/* Model logos row */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-muted">
-          <span className="opacity-60">Works with:</span>
+        <div className="mt-12 sm:mt-16 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-sm text-muted">
+          <span className="opacity-60 w-full sm:w-auto text-center mb-1 sm:mb-0">Works with:</span>
           {["Midjourney", "DALL-E 3", "Stable Diffusion", "Flux"].map((m) => (
-            <span key={m} className="rounded-full border border-white/10 bg-surface px-4 py-1.5 text-xs font-medium">
+            <span key={m} className="rounded-lg border border-border bg-surface px-3 sm:px-4 py-1.5 text-xs font-medium text-foreground/70">
               {m}
             </span>
           ))}

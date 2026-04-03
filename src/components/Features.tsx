@@ -63,16 +63,16 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="features" className="relative py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-accent">
             Features
           </p>
-          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
             Everything you need to craft perfect prompts
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted">
+          <p className="mx-auto mt-4 max-w-2xl text-muted leading-relaxed">
             A complete toolkit for AI image generation — from first draft to
             final render.
           </p>
@@ -82,12 +82,12 @@ export default function Features() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl border border-white/5 bg-surface p-6 transition-all hover:border-primary/30 hover:bg-surface-light"
+              className="group rounded-2xl bg-background p-6 sm:p-8 card-shadow card-shadow-hover transition-all duration-300 hover:scale-[1.02] border border-transparent dark:border-border"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
                 {f.icon}
               </div>
-              <h3 className="text-lg font-semibold">{f.title}</h3>
+              <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 {f.description}
               </p>

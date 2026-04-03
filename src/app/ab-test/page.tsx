@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const MODELS = ["Midjourney", "DALL-E 3", "Flux", "Stable Diffusion", "Leonardo AI"] as const;
 
@@ -21,7 +22,7 @@ const QUICK_FILLS = [
   },
   {
     a: "a cozy coffee shop interior on a rainy day",
-    b: "warm café with exposed brick, rain streaking down tall windows, steam rising from ceramic mugs",
+    b: "warm cafe with exposed brick, rain streaking down tall windows, steam rising from ceramic mugs",
   },
   {
     a: "an astronaut floating above Earth",
@@ -48,7 +49,7 @@ function ScoreRing({ score, size = 80 }: { score: number; size?: number }) {
   return (
     <div className="relative inline-flex items-center justify-center">
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={center} cy={center} r={radius} fill="none" stroke="#252542" strokeWidth="5" />
+        <circle cx={center} cy={center} r={radius} fill="none" stroke="var(--ring-track)" strokeWidth="5" />
         <circle
           cx={center}
           cy={center}
@@ -80,7 +81,7 @@ function CopyBtn({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="rounded-lg border border-white/10 bg-surface-light px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground hover:border-primary/30 transition-all active:scale-95"
+      className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted hover:text-foreground transition-all active:scale-95"
     >
       {copied ? "Copied!" : "Copy"}
     </button>
@@ -139,6 +140,7 @@ export default function ABTestPage() {
   const [resultB, setResultB] = useState<FixResult | null>(null);
   const [error, setError] = useState("");
   const [winner, setWinner] = useState<"A" | "B" | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scoreA = quickScore(promptA);
   const scoreB = quickScore(promptB);
@@ -196,36 +198,51 @@ export default function ABTestPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2 text-xl font-bold">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
-            Visual<span className="text-primary">Prompt</span>AI
+            <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/composer" className="text-sm text-muted hover:text-foreground transition-colors">
-              Composer
-            </Link>
-            <Link href="/fixer" className="text-sm text-muted hover:text-foreground transition-colors">
-              Fixer
-            </Link>
-            <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              A/B Test
-            </span>
+          <div className="hidden items-center gap-6 sm:flex">
+            <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">Composer</Link>
+            <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">Fixer</Link>
+            <span className="rounded-md border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">A/B Test</span>
+            <ThemeToggle />
+          </div>
+          <div className="flex items-center gap-3 sm:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex flex-col gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "opacity-0" : ""}`} />
+              <span className={`h-0.5 w-6 bg-foreground transition-all ${mobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+            </button>
+          </div>
+        </div>
+        <div className={`border-t border-border bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
+          <div className="flex flex-col gap-4 px-6 py-4">
+            <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
+            <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Fixer</Link>
+            <span className="text-sm text-primary font-semibold">A/B Test (current)</span>
           </div>
         </div>
       </nav>
 
-      <main className="mx-auto max-w-7xl px-6 pt-28 pb-20">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-extrabold sm:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
             Prompt{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               A/B Testing
             </span>
           </h1>
-          <p className="mt-3 text-muted max-w-xl mx-auto">
+          <p className="mt-3 text-muted max-w-xl mx-auto leading-relaxed">
             Compare two prompt variations side by side, optimize both with AI, and pick the winner.
           </p>
         </div>
@@ -234,7 +251,7 @@ export default function ABTestPage() {
         <div className="flex justify-center mb-8">
           <button
             onClick={handleQuickFill}
-            className="rounded-full border border-white/10 bg-surface-light px-6 py-2.5 text-sm font-medium text-muted hover:text-foreground hover:border-primary/30 transition-all active:scale-95"
+            className="rounded-xl border border-border bg-surface px-6 py-2.5 text-sm font-medium text-muted hover:text-foreground transition-all active:scale-95"
           >
             Quick Fill with Example Prompts
           </button>
@@ -243,13 +260,13 @@ export default function ABTestPage() {
         {/* Two editors side by side */}
         <div className="grid gap-6 md:grid-cols-2">
           {/* Variant A */}
-          <div className={`rounded-2xl border p-6 transition-all duration-500 ${
+          <div className={`rounded-2xl p-4 sm:p-6 transition-all duration-500 card-shadow ${
             winner === "A"
-              ? "border-accent/60 bg-accent/5 shadow-[0_0_40px_-8px_rgba(0,201,167,0.3)]"
-              : "border-white/5 bg-surface"
+              ? "border-2 border-accent/60 bg-accent/5"
+              : "bg-background border border-transparent dark:border-border"
           }`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold flex items-center gap-2">
+              <h2 className="text-base sm:text-lg font-semibold flex items-center gap-2 text-foreground">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 text-xs font-black text-white">
                   A
                 </span>
@@ -260,7 +277,7 @@ export default function ABTestPage() {
                   </span>
                 )}
               </h2>
-              <ScoreRing score={scoreA} size={64} />
+              <ScoreRing score={scoreA} size={52} />
             </div>
 
             <textarea
@@ -268,15 +285,15 @@ export default function ABTestPage() {
               value={promptA}
               onChange={(e) => { setPromptA(e.target.value); setResultA(null); setWinner(null); }}
               placeholder="Enter prompt variant A..."
-              className="w-full resize-none rounded-xl border border-white/10 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+              className="w-full resize-none rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
             />
 
             <div className="mt-3">
-              <label className="mb-1.5 block text-xs font-medium text-muted">Target Model</label>
+              <label className="mb-1.5 block text-xs font-semibold text-muted">Target Model</label>
               <select
                 value={modelA}
                 onChange={(e) => setModelA(e.target.value)}
-                className="w-full rounded-lg border border-white/10 bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
+                className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
               >
                 {MODELS.map((m) => (
                   <option key={m} value={m}>{m}</option>
@@ -286,13 +303,13 @@ export default function ABTestPage() {
           </div>
 
           {/* Variant B */}
-          <div className={`rounded-2xl border p-6 transition-all duration-500 ${
+          <div className={`rounded-2xl p-4 sm:p-6 transition-all duration-500 card-shadow ${
             winner === "B"
-              ? "border-accent/60 bg-accent/5 shadow-[0_0_40px_-8px_rgba(0,201,167,0.3)]"
-              : "border-white/5 bg-surface"
+              ? "border-2 border-accent/60 bg-accent/5"
+              : "bg-background border border-transparent dark:border-border"
           }`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold flex items-center gap-2">
+              <h2 className="text-base sm:text-lg font-semibold flex items-center gap-2 text-foreground">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-xs font-black text-white">
                   B
                 </span>
@@ -303,7 +320,7 @@ export default function ABTestPage() {
                   </span>
                 )}
               </h2>
-              <ScoreRing score={scoreB} size={64} />
+              <ScoreRing score={scoreB} size={52} />
             </div>
 
             <textarea
@@ -311,15 +328,15 @@ export default function ABTestPage() {
               value={promptB}
               onChange={(e) => { setPromptB(e.target.value); setResultB(null); setWinner(null); }}
               placeholder="Enter prompt variant B..."
-              className="w-full resize-none rounded-xl border border-white/10 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+              className="w-full resize-none rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
             />
 
             <div className="mt-3">
-              <label className="mb-1.5 block text-xs font-medium text-muted">Target Model</label>
+              <label className="mb-1.5 block text-xs font-semibold text-muted">Target Model</label>
               <select
                 value={modelB}
                 onChange={(e) => setModelB(e.target.value)}
-                className="w-full rounded-lg border border-white/10 bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
+                className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
               >
                 {MODELS.map((m) => (
                   <option key={m} value={m}>{m}</option>
@@ -334,7 +351,7 @@ export default function ABTestPage() {
           <button
             onClick={handleOptimizeBoth}
             disabled={!promptA.trim() || !promptB.trim() || loading}
-            className="rounded-full bg-gradient-to-r from-primary to-accent px-10 py-4 text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 hover:brightness-110 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="rounded-xl bg-primary px-10 py-4 text-base font-bold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             {loading ? (
               <span className="inline-flex items-center gap-3">
@@ -352,7 +369,7 @@ export default function ABTestPage() {
 
         {/* Error */}
         {error && (
-          <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm text-red-400 text-center">
+          <div className="mt-6 rounded-xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 px-5 py-3 text-sm text-red-600 dark:text-red-400 text-center">
             {error}
           </div>
         )}
@@ -366,20 +383,20 @@ export default function ABTestPage() {
 
             <div className="grid gap-6 md:grid-cols-2">
               {/* Result A */}
-              <div className={`rounded-2xl border p-5 space-y-4 transition-all duration-500 ${
+              <div className={`rounded-2xl p-4 sm:p-5 space-y-4 transition-all duration-500 card-shadow ${
                 winner === "A"
-                  ? "border-accent/60 bg-accent/5 shadow-[0_0_50px_-10px_rgba(0,201,167,0.35)]"
-                  : "border-white/5 bg-surface"
+                  ? "border-2 border-accent/60 bg-accent/5"
+                  : "bg-background border border-transparent dark:border-border"
               }`}>
                 {winner === "A" && (
-                  <div className="flex items-center justify-center gap-2 text-yellow-400 font-bold text-sm animate-bounce">
+                  <div className="flex items-center justify-center gap-2 text-yellow-500 font-bold text-sm animate-bounce">
                     <Crown className="h-5 w-5" /> WINNER <Crown className="h-5 w-5" />
                   </div>
                 )}
 
                 {/* Original A */}
-                <div className="rounded-xl border border-white/5 bg-background p-4">
-                  <div className="flex items-center justify-between mb-2">
+                <div className="rounded-xl border border-border bg-surface p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-muted">Original A</span>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-muted">Score: {resultA.originalScore}</span>
@@ -413,20 +430,20 @@ export default function ABTestPage() {
               </div>
 
               {/* Result B */}
-              <div className={`rounded-2xl border p-5 space-y-4 transition-all duration-500 ${
+              <div className={`rounded-2xl p-4 sm:p-5 space-y-4 transition-all duration-500 card-shadow ${
                 winner === "B"
-                  ? "border-accent/60 bg-accent/5 shadow-[0_0_50px_-10px_rgba(0,201,167,0.35)]"
-                  : "border-white/5 bg-surface"
+                  ? "border-2 border-accent/60 bg-accent/5"
+                  : "bg-background border border-transparent dark:border-border"
               }`}>
                 {winner === "B" && (
-                  <div className="flex items-center justify-center gap-2 text-yellow-400 font-bold text-sm animate-bounce">
+                  <div className="flex items-center justify-center gap-2 text-yellow-500 font-bold text-sm animate-bounce">
                     <Crown className="h-5 w-5" /> WINNER <Crown className="h-5 w-5" />
                   </div>
                 )}
 
                 {/* Original B */}
-                <div className="rounded-xl border border-white/5 bg-background p-4">
-                  <div className="flex items-center justify-between mb-2">
+                <div className="rounded-xl border border-border bg-surface p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-muted">Original B</span>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-muted">Score: {resultB.originalScore}</span>
@@ -465,23 +482,23 @@ export default function ABTestPage() {
               <h3 className="text-xs font-bold uppercase tracking-widest text-muted mb-4">
                 Declare Winner
               </h3>
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                 <button
                   onClick={() => declareWinner("A")}
-                  className={`flex items-center gap-2 rounded-xl px-8 py-3 text-sm font-bold transition-all active:scale-95 ${
+                  className={`flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3 text-sm font-bold transition-all active:scale-95 ${
                     winner === "A"
                       ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-black shadow-lg shadow-yellow-400/30 scale-105"
-                      : "border border-white/10 bg-surface-light text-muted hover:text-foreground hover:border-violet-500/30"
+                      : "border border-border bg-surface text-muted hover:text-foreground"
                   }`}
                 >
                   <Crown /> A Wins
                 </button>
                 <button
                   onClick={() => declareWinner("B")}
-                  className={`flex items-center gap-2 rounded-xl px-8 py-3 text-sm font-bold transition-all active:scale-95 ${
+                  className={`flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3 text-sm font-bold transition-all active:scale-95 ${
                     winner === "B"
                       ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-black shadow-lg shadow-yellow-400/30 scale-105"
-                      : "border border-white/10 bg-surface-light text-muted hover:text-foreground hover:border-cyan-500/30"
+                      : "border border-border bg-surface text-muted hover:text-foreground"
                   }`}
                 >
                   <Crown /> B Wins
@@ -496,16 +513,6 @@ export default function ABTestPage() {
           </div>
         )}
       </main>
-
-      <style jsx>{`
-        @keyframes animateIn {
-          from { opacity: 0; transform: translateY(12px) scale(0.97); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        :global(.animate-in) {
-          animation: animateIn 0.4s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
