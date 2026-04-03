@@ -1,4 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { apiGuard, errorResponse } from "@/lib/api-utils";
+import { sanitizeString, validateEnum } from "@/lib/sanitize";
 
 const MODELS = ["Midjourney", "DALL-E", "Stable Diffusion", "Flux", "Leonardo AI"] as const;
 
@@ -11,33 +13,36 @@ function stripCodeFences(text: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Security guards: rate limit, CSRF, content-type, body size
+  const guard = apiGuard(req, "api");
+  if (guard) return guard;
+
   try {
     const apiKey = process.env.OPENROUTER_API_KEY;
-    console.log("=== FIX-PROMPT REQUEST ===");
-    console.log("API key exists:", !!apiKey);
-
     if (!apiKey) {
-      console.error("OPENROUTER_API_KEY is not set in environment variables");
-      return NextResponse.json(
-        { error: "Server configuration error: API key is missing" },
-        { status: 500 },
-      );
+      console.error("OPENROUTER_API_KEY is not set");
+      return errorResponse("Service temporarily unavailable", 503);
     }
 
-    const { prompt, model: targetModel } = await req.json();
-    console.log("Input prompt:", prompt?.slice(0, 100));
-    console.log("Target model:", targetModel);
-
-    if (!prompt || typeof prompt !== "string" || prompt.trim().length === 0) {
-      return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return errorResponse("Invalid JSON body", 400);
     }
 
-    if (!targetModel || !MODELS.includes(targetModel)) {
-      return NextResponse.json({ error: "Invalid model selected" }, { status: 400 });
+    const { prompt: rawPrompt, model: rawModel } = body as Record<string, unknown>;
+
+    // Input validation and sanitization
+    const prompt = sanitizeString(rawPrompt, 5000);
+    if (!prompt) {
+      return errorResponse("Prompt is required and must be under 5000 characters", 400);
     }
 
-    console.log("Calling OpenRouter API...");
-    const start = Date.now();
+    const targetModel = validateEnum(rawModel, MODELS);
+    if (!targetModel) {
+      return errorResponse("Invalid model. Allowed: " + MODELS.join(", "), 400);
+    }
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -51,51 +56,30 @@ export async function POST(req: NextRequest) {
         model: "openrouter/free",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: `Target model: ${targetModel}\nUser prompt: ${prompt.trim()}` },
+          { role: "user", content: `Target model: ${targetModel}\nUser prompt: ${prompt}` },
         ],
       }),
     });
 
-    const elapsed = Date.now() - start;
-    console.log(`OpenRouter responded in ${elapsed}ms, status: ${response.status}`);
-
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error("OpenRouter error response:", errorBody);
+      console.error("OpenRouter error:", response.status, errorBody);
 
-      if (response.status === 401) {
-        return NextResponse.json(
-          { error: "Invalid API key. Check your OPENROUTER_API_KEY in .env.local." },
-          { status: 500 },
-        );
-      }
       if (response.status === 429) {
-        return NextResponse.json(
-          { error: "Rate limited by OpenRouter. Please wait a moment and try again." },
-          { status: 429 },
-        );
+        return errorResponse("Rate limited. Please wait a moment and try again.", 429);
       }
-      return NextResponse.json(
-        { error: `OpenRouter API error (${response.status}): ${errorBody}` },
-        { status: 500 },
-      );
+      return errorResponse("Failed to optimize prompt. Please try again.", 502);
     }
 
     const data = await response.json();
 
     if (!data.choices?.[0]?.message?.content) {
-      console.error("Unexpected OpenRouter response structure:", JSON.stringify(data));
-      return NextResponse.json(
-        { error: "Received an empty response from the AI. Please try again." },
-        { status: 500 },
-      );
+      console.error("Empty OpenRouter response");
+      return errorResponse("Received an empty response. Please try again.", 502);
     }
 
     const responseText = data.choices[0].message.content;
-    console.log("Raw response (first 500 chars):", responseText.slice(0, 500));
-
     const cleanedText = stripCodeFences(responseText);
-    console.log("Cleaned text (first 500 chars):", cleanedText.slice(0, 500));
 
     let parsed: {
       optimizedPrompt: string;
@@ -107,29 +91,19 @@ export async function POST(req: NextRequest) {
     try {
       parsed = JSON.parse(cleanedText);
     } catch {
-      console.error("Failed to parse AI response:", responseText);
-      return NextResponse.json(
-        { error: "Failed to parse AI response. Please try again." },
-        { status: 500 },
-      );
+      console.error("Failed to parse AI response:", responseText.slice(0, 500));
+      return errorResponse("Failed to parse AI response. Please try again.", 502);
     }
 
-    return NextResponse.json({
-      original: prompt.trim(),
-      fixed: parsed.optimizedPrompt,
-      originalScore: Math.min(100, Math.max(0, parsed.originalScore || 0)),
-      fixedScore: Math.min(100, Math.max(0, parsed.optimizedScore || 0)),
-      tips: parsed.tips || [],
+    return Response.json({
+      original: prompt,
+      fixed: sanitizeString(parsed.optimizedPrompt, 10000) || prompt,
+      originalScore: Math.min(100, Math.max(0, Number(parsed.originalScore) || 0)),
+      fixedScore: Math.min(100, Math.max(0, Number(parsed.optimizedScore) || 0)),
+      tips: Array.isArray(parsed.tips) ? parsed.tips.slice(0, 5).map((t) => String(t).slice(0, 500)) : [],
       model: targetModel,
     });
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error("=== FIX-PROMPT ERROR ===");
-    console.error("Error message:", message);
-
-    return NextResponse.json(
-      { error: `Failed to process prompt: ${message}` },
-      { status: 500 },
-    );
+  } catch (err) {
+    return errorResponse("An unexpected error occurred", 500, err);
   }
 }

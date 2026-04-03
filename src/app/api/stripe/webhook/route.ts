@@ -1,57 +1,62 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { webhookGuard, errorResponse } from "@/lib/api-utils";
 import Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
-  const body = await request.text();
-  const signature = request.headers.get("stripe-signature");
-
-  if (!signature) {
-    return NextResponse.json({ error: "Missing signature" }, { status: 400 });
-  }
-
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
-
-  if (!stripe) {
-    return NextResponse.json({ error: "Stripe is not configured" }, { status: 500 });
-  }
-
-  let event: Stripe.Event;
+  // Webhook uses signature verification instead of CSRF/content-type checks
+  const guard = webhookGuard(request);
+  if (guard) return guard;
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    if (!stripe) {
+      return errorResponse("Payment service is not configured", 503);
+    }
+
+    const body = await request.text();
+    const signature = request.headers.get("stripe-signature");
+
+    if (!signature) {
+      return errorResponse("Missing webhook signature", 400);
+    }
+
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
+    if (!webhookSecret) {
+      console.error("STRIPE_WEBHOOK_SECRET is not set");
+      return errorResponse("Webhook not configured", 503);
+    }
+
+    let event: Stripe.Event;
+    try {
+      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    } catch (err) {
+      console.error("Webhook signature verification failed:", err);
+      return errorResponse("Invalid webhook signature", 400);
+    }
+
+    switch (event.type) {
+      case "checkout.session.completed": {
+        const session = event.data.object as Stripe.Checkout.Session;
+        console.log("[Stripe] Checkout completed:", session.id);
+        // TODO: Update user subscription in database
+        break;
+      }
+      case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
+        console.log("[Stripe] Subscription updated:", subscription.id, subscription.status);
+        break;
+      }
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object as Stripe.Subscription;
+        console.log("[Stripe] Subscription cancelled:", subscription.id);
+        break;
+      }
+      default:
+        break;
+    }
+
+    return Response.json({ received: true });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Webhook signature verification failed";
-    return NextResponse.json({ error: message }, { status: 400 });
+    return errorResponse("Webhook processing failed", 500, err);
   }
-
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object as Stripe.Checkout.Session;
-      // TODO: Update user's subscription status in database
-      // const userId = session.metadata?.userId;
-      // const plan = session.metadata?.plan;
-      console.log("Checkout completed:", session.id, session.metadata);
-      break;
-    }
-
-    case "customer.subscription.updated": {
-      const subscription = event.data.object as Stripe.Subscription;
-      // TODO: Update user's subscription in database
-      console.log("Subscription updated:", subscription.id, subscription.status);
-      break;
-    }
-
-    case "customer.subscription.deleted": {
-      const subscription = event.data.object as Stripe.Subscription;
-      // TODO: Downgrade user to free plan in database
-      console.log("Subscription cancelled:", subscription.id);
-      break;
-    }
-
-    default:
-      console.log("Unhandled event type:", event.type);
-  }
-
-  return NextResponse.json({ received: true });
 }

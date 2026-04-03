@@ -1,19 +1,27 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { apiGuard, errorResponse } from "@/lib/api-utils";
+import { sanitizeString } from "@/lib/sanitize";
 
 export async function POST(request: NextRequest) {
-  try {
-    const { customerId } = await request.json();
+  const guard = apiGuard(request, "stripe");
+  if (guard) return guard;
 
+  try {
     if (!stripe) {
-      return NextResponse.json({ error: "Stripe is not configured" }, { status: 500 });
+      return errorResponse("Payment service is not configured", 503);
     }
 
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return errorResponse("Invalid JSON body", 400);
+    }
+
+    const customerId = sanitizeString((body as Record<string, unknown>).customerId, 200);
     if (!customerId) {
-      return NextResponse.json(
-        { error: "Customer ID is required" },
-        { status: 400 }
-      );
+      return errorResponse("Customer ID is required", 400);
     }
 
     const session = await stripe.billingPortal.sessions.create({
@@ -21,9 +29,8 @@ export async function POST(request: NextRequest) {
       return_url: `${request.nextUrl.origin}/dashboard`,
     });
 
-    return NextResponse.json({ url: session.url });
+    return Response.json({ url: session.url });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Failed to create portal session";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return errorResponse("Failed to create portal session", 500, err);
   }
 }
