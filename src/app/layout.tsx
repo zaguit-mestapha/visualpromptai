@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     creator: "@visualpromptai",
   },
   verification: {
-    google: "VERIFICATION_CODE_HERE",
+    google: "S-WWXIzz6Hnou5zGKJH63H786IfMslBiGVRYk2oExMU",
   },
   alternates: {
     canonical: SITE_URL,
