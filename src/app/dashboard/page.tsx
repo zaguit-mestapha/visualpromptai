@@ -116,9 +116,28 @@ export default function DashboardPage() {
               Plan
             </p>
             <p className="text-3xl font-semibold tracking-[-0.02em] text-foreground">Free</p>
-            <Link href="/#pricing" className="mt-1 inline-block text-xs text-primary font-semibold hover:underline">
-              Upgrade to Pro
-            </Link>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Link href="/pricing" className="inline-block text-xs text-primary font-semibold hover:underline">
+                Upgrade to Pro
+              </Link>
+              <span className="text-xs text-muted">|</span>
+              <button
+                onClick={async () => {
+                  try {
+                    const res = await fetch("/api/stripe/portal", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ customerId: "" }),
+                    });
+                    const data = await res.json();
+                    if (data.url) window.location.href = data.url;
+                  } catch { /* no-op */ }
+                }}
+                className="text-xs text-muted hover:text-foreground font-semibold transition-colors"
+              >
+                Manage Subscription
+              </button>
+            </div>
           </div>
         </div>
 
