@@ -24,7 +24,7 @@ export default function SignUpPage() {
       password,
       options: {
         data: { full_name: name },
-        emailRedirectTo: `${window.location.origin}/api/auth/callback`,
+        emailRedirectTo: "https://www.visualpromptai.com/api/auth/callback",
       },
     });
 
@@ -41,7 +41,7 @@ export default function SignUpPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
+        redirectTo: "https://www.visualpromptai.com/api/auth/callback",
       },
     });
     if (error) setError(error.message);

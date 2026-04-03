@@ -36,7 +36,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
+        redirectTo: "https://www.visualpromptai.com/api/auth/callback",
       },
     });
     if (error) setError(error.message);
@@ -116,6 +116,12 @@ export default function LoginPage() {
                 placeholder="Your password"
                 className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
               />
+            </div>
+
+            <div className="text-right">
+              <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+                Forgot password?
+              </Link>
             </div>
 
             {error && (
