@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -70,6 +71,9 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@visualpromptai",
   },
+  verification: {
+    google: "VERIFICATION_CODE_HERE",
+  },
   alternates: {
     canonical: SITE_URL,
   },
@@ -97,6 +101,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
+        <GoogleAnalytics />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
