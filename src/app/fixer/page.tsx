@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -87,12 +88,26 @@ function CopyButton({ text }: { text: string }) {
 }
 
 export default function FixerPage() {
+  return (
+    <Suspense>
+      <FixerPageInner />
+    </Suspense>
+  );
+}
+
+function FixerPageInner() {
+  const searchParams = useSearchParams();
   const [prompt, setPrompt] = useState("");
   const [model, setModel] = useState<(typeof MODELS)[number]>("Midjourney");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<FixResult | null>(null);
   const [error, setError] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const prefill = searchParams.get("prompt");
+    if (prefill) setPrompt(prefill);
+  }, [searchParams]);
 
   const handleFix = async () => {
     if (!prompt.trim()) return;

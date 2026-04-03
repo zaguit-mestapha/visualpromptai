@@ -8,10 +8,77 @@ const inter = Inter({
   display: "swap",
 });
 
+const SITE_URL = "https://visualpromptai.com";
+
 export const metadata: Metadata = {
-  title: "VisualPromptAI - Build AI Image Prompts Visually",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "VisualPromptAI - Build AI Image Prompts Visually | Free Prompt Optimizer",
+    template: "%s | VisualPromptAI",
+  },
   description:
-    "Stop guessing. Drag, drop, and optimize prompts for Midjourney, DALL-E, Flux, and Stable Diffusion.",
+    "Stop guessing with AI image prompts. Drag, drop, and optimize prompts for Midjourney, DALL-E, Stable Diffusion, and Flux. Free prompt fixer and visual composer.",
+  keywords: [
+    "AI prompt builder",
+    "midjourney prompt generator",
+    "AI image prompt optimizer",
+    "visual prompt builder",
+    "stable diffusion prompts",
+    "DALL-E prompt generator",
+    "flux prompt generator",
+    "AI art prompts",
+    "prompt engineering tool",
+    "image generation prompts",
+  ],
+  authors: [{ name: "VisualPromptAI" }],
+  creator: "VisualPromptAI",
+  publisher: "VisualPromptAI",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: "VisualPromptAI",
+    title: "VisualPromptAI - Build AI Image Prompts Visually",
+    description:
+      "Stop guessing with AI image prompts. Drag, drop, and optimize prompts for Midjourney, DALL-E, Stable Diffusion, and Flux.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VisualPromptAI - Visual AI Prompt Builder",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VisualPromptAI - Build AI Image Prompts Visually",
+    description:
+      "Stop guessing with AI image prompts. Drag, drop, and optimize prompts for Midjourney, DALL-E, Stable Diffusion, and Flux.",
+    images: ["/og-image.png"],
+    creator: "@visualpromptai",
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
