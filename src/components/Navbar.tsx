@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import UserMenu from "./UserMenu";
+import { LogoFull } from "./Logo";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -10,12 +11,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <a href="#" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
-          <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
-          <span className="text-foreground">
-            Visual<span className="text-primary">Prompt</span>AI
-          </span>
-        </a>
+        <LogoFull />
 
         {/* Desktop links */}
         <div className="hidden items-center gap-8 md:flex">

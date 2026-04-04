@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserMenu from "@/components/UserMenu";
+import { LogoIcon } from "@/components/Logo";
 
 const tiers = [
   {
@@ -89,7 +90,7 @@ export default function PricingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
-            <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
+            <LogoIcon size={32} />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
           <div className="flex items-center gap-4">

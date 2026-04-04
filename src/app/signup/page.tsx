@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { isDisposableEmail } from "@/lib/disposable-emails";
 import ThemeToggle from "@/components/ThemeToggle";
 import PasswordInput from "@/components/PasswordInput";
+import { LogoIcon } from "@/components/Logo";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -61,7 +62,7 @@ export default function SignUpPage() {
       <nav className="border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
-            <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
+            <LogoIcon size={32} />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
           <ThemeToggle />

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoIcon } from "./Logo";
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-              <span className="inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent" />
+              <LogoIcon size={28} />
               <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
             </Link>
             <p className="mt-3 text-sm text-muted leading-relaxed">

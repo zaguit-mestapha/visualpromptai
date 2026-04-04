@@ -21,7 +21,8 @@
       "Bash(grep -r \"ApiVersion\" C:/Users/HP/visualpromptai/node_modules/stripe/types/*.d.ts)",
       "Bash(npm audit:*)",
       "Read(//c/Users/HP/AppData/Local/Temp/claude/C--Users-HP-visualpromptai/7f2337d5-ec29-4c60-a037-ae999936aaea/tasks/**)",
-      "Bash(npx kill-port:*)"
+      "Bash(npx kill-port:*)",
+      "Bash(ls:*)"
     ]
   }
 }

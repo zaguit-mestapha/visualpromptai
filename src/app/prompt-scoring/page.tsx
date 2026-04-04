@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserMenu from "@/components/UserMenu";
+import { LogoIcon } from "@/components/Logo";
 
 /* ───── Constants ───── */
 const MODELS = [
@@ -320,7 +321,7 @@ function PromptScoringPageInner() {
             href="/"
             className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight"
           >
-            <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
+            <LogoIcon size={32} />
             <span className="text-foreground">
               Visual<span className="text-primary">Prompt</span>AI
             </span>

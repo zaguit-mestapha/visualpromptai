@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import { LogoIcon } from "@/components/Logo";
 
 export default function AboutPage() {
   return (
@@ -7,7 +8,7 @@ export default function AboutPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <span className="inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent" />
+            <LogoIcon size={28} />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
           <Link
