@@ -20,7 +20,8 @@
       "Bash(node -e \"const s = require\\('stripe'\\); console.log\\(s.default?.prototype?.constructor?.name || 'checking...'\\)\")",
       "Bash(grep -r \"ApiVersion\" C:/Users/HP/visualpromptai/node_modules/stripe/types/*.d.ts)",
       "Bash(npm audit:*)",
-      "Read(//c/Users/HP/AppData/Local/Temp/claude/C--Users-HP-visualpromptai/7f2337d5-ec29-4c60-a037-ae999936aaea/tasks/**)"
+      "Read(//c/Users/HP/AppData/Local/Temp/claude/C--Users-HP-visualpromptai/7f2337d5-ec29-4c60-a037-ae999936aaea/tasks/**)",
+      "Bash(npx kill-port:*)"
     ]
   }
 }

@@ -566,6 +566,12 @@ export default function ImageToPromptPage() {
 
                 {/* Cross-links */}
                 <Link
+                  href={`/prompt-scoring?prompt=${encodeURIComponent(result.prompt)}`}
+                  className="block rounded-xl border border-[#639922]/20 bg-[#639922]/5 px-4 py-3 text-center text-sm text-[#639922] font-medium hover:bg-[#639922]/10 transition-colors"
+                >
+                  Score this prompt &rarr;
+                </Link>
+                <Link
                   href="/composer"
                   className="block rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-center text-sm text-primary font-medium hover:bg-primary/10 transition-colors"
                 >

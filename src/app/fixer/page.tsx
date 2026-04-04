@@ -158,6 +158,9 @@ function FixerPageInner() {
             <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
               Fixer
             </span>
+            <Link href="/prompt-scoring" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
+              Scoring
+            </Link>
             <Link href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
               Image to Prompt
             </Link>
@@ -183,6 +186,7 @@ function FixerPageInner() {
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
             <span className="text-sm text-accent font-semibold">Fixer (current)</span>
+            <Link href="/prompt-scoring" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Scoring</Link>
             <Link href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Image to Prompt</Link>
           </div>
         </div>
@@ -346,13 +350,21 @@ function FixerPageInner() {
           </div>
         )}
 
-        {/* Cross-link banner */}
-        <div className="mt-12 rounded-xl border border-primary/20 bg-primary/5 px-6 py-4 text-center text-sm text-muted">
-          Have an image?{" "}
-          <Link href="/image-to-prompt" className="text-primary font-semibold hover:underline">
-            Try our Image to Prompt Generator
-          </Link>{" "}
-          — Upload any image and get an optimized prompt.
+        {/* Cross-link banners */}
+        <div className="mt-12 space-y-3">
+          <div className="rounded-xl border border-accent/20 bg-accent/5 px-6 py-4 text-center text-sm text-muted">
+            Want to check your prompt&apos;s score first?{" "}
+            <Link href="/prompt-scoring" className="text-accent font-semibold hover:underline">
+              Try Prompt Scoring &rarr;
+            </Link>
+          </div>
+          <div className="rounded-xl border border-primary/20 bg-primary/5 px-6 py-4 text-center text-sm text-muted">
+            Have an image?{" "}
+            <Link href="/image-to-prompt" className="text-primary font-semibold hover:underline">
+              Try our Image to Prompt Generator
+            </Link>{" "}
+            — Upload any image and get an optimized prompt.
+          </div>
         </div>
 
         {/* SEO Content: How the AI Prompt Fixer Works */}
