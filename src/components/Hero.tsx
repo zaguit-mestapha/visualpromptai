@@ -1,19 +1,6 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Hero() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setEmail("");
-    }
-  };
-
   return (
     <section className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-20 md:pt-44 md:pb-32">
       {/* Background glow - subtle in light, more visible in dark */}
@@ -41,32 +28,24 @@ export default function Hero() {
           DALL-E, Flux, and Stable Diffusion.
         </p>
 
-        {/* Waitlist form */}
-        <div id="waitlist" className="mx-auto mt-10 max-w-md">
-          {submitted ? (
-            <div className="rounded-2xl border border-accent/30 bg-accent/5 px-6 py-4 text-accent font-medium">
-              You&apos;re on the list! We&apos;ll be in touch soon.
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="flex-1 rounded-xl border border-border bg-background px-5 py-3 text-sm text-foreground placeholder:text-muted outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
-              />
-              <button
-                type="submit"
-                className="rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95"
-              >
-                Join Waitlist
-              </button>
-            </form>
-          )}
+        {/* CTA buttons */}
+        <div className="mx-auto mt-10 max-w-md">
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Link
+              href="/fixer"
+              className="rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 text-center"
+            >
+              Try Prompt Fixer &mdash; Free
+            </Link>
+            <Link
+              href="/image-to-prompt"
+              className="rounded-xl border border-border bg-background px-7 py-3 text-sm font-semibold text-foreground transition-all hover:border-primary/50 hover:text-primary active:scale-95 text-center"
+            >
+              Image to Prompt &rarr;
+            </Link>
+          </div>
           <p className="mt-3 text-xs text-muted">
-            Free during beta &middot; No credit card required
+            Free forever &middot; No login required
           </p>
         </div>
 

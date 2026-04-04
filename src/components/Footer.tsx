@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-surface">
@@ -5,10 +7,10 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <a href="#" className="flex items-center gap-2 text-lg font-semibold">
+            <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
               <span className="inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent" />
               <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
-            </a>
+            </Link>
             <p className="mt-3 text-sm text-muted leading-relaxed">
               The visual prompt engineering platform for AI image generation.
             </p>
@@ -20,23 +22,21 @@ export default function Footer() {
               Product
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><a href="#features" className="text-muted hover:text-foreground transition-colors">Features</a></li>
-              <li><a href="#pricing" className="text-muted hover:text-foreground transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Changelog</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Roadmap</a></li>
+              <li><Link href="/#features" className="text-muted hover:text-foreground transition-colors">Features</Link></li>
+              <li><Link href="/#pricing" className="text-muted hover:text-foreground transition-colors">Pricing</Link></li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Tools */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
-              Resources
+              Tools
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Documentation</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Prompt Guide</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Blog</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Community</a></li>
+              <li><Link href="/fixer" className="text-muted hover:text-foreground transition-colors">Prompt Fixer</Link></li>
+              <li><Link href="/image-to-prompt" className="text-muted hover:text-foreground transition-colors">Image to Prompt</Link></li>
+              <li><Link href="/prompt-scoring" className="text-muted hover:text-foreground transition-colors">Prompt Scoring</Link></li>
+              <li><Link href="/composer" className="text-muted hover:text-foreground transition-colors">Visual Composer</Link></li>
             </ul>
           </div>
 
@@ -46,9 +46,9 @@ export default function Footer() {
               Company
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">About</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Privacy</a></li>
-              <li><a href="#" className="text-muted hover:text-foreground transition-colors">Terms</a></li>
+              <li><Link href="/about" className="text-muted hover:text-foreground transition-colors">About</Link></li>
+              <li><Link href="/privacy" className="text-muted hover:text-foreground transition-colors">Privacy</Link></li>
+              <li><Link href="/terms" className="text-muted hover:text-foreground transition-colors">Terms</Link></li>
               <li><a href="mailto:hello@visualpromptai.com" className="text-muted hover:text-foreground transition-colors">Contact</a></li>
             </ul>
           </div>
