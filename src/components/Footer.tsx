@@ -47,9 +47,10 @@ export default function Footer() {
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/about" className="text-muted hover:text-foreground transition-colors">About</Link></li>
+              <li><Link href="/contact" className="text-muted hover:text-foreground transition-colors">Contact</Link></li>
               <li><Link href="/privacy" className="text-muted hover:text-foreground transition-colors">Privacy</Link></li>
               <li><Link href="/terms" className="text-muted hover:text-foreground transition-colors">Terms</Link></li>
-              <li><a href="mailto:hello@visualpromptai.com" className="text-muted hover:text-foreground transition-colors">Contact</a></li>
+              <li><Link href="/disclaimer" className="text-muted hover:text-foreground transition-colors">Disclaimer</Link></li>
             </ul>
           </div>
         </div>
