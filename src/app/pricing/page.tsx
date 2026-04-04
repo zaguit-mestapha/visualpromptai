@@ -86,9 +86,9 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -111,7 +111,7 @@ export default function PricingPage() {
           <p className="text-sm font-semibold uppercase tracking-widest text-accent">
             Pricing
           </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.02em] sm:text-5xl text-foreground">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight font-display sm:text-5xl text-foreground">
             Simple, transparent pricing
           </h1>
           <p className="mt-4 text-muted leading-relaxed text-lg">
@@ -159,17 +159,17 @@ export default function PricingPage() {
                 className={`relative rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
                   tier.highlighted
                     ? "bg-background card-shadow md:scale-[1.02] border-2 border-primary/30"
-                    : "bg-background card-shadow border border-transparent dark:border-border hover:scale-[1.02]"
+                    : "bg-background card-shadow border border-transparent dark:border-white/[0.06] hover:scale-[1.02]"
                 }`}
               >
                 {tier.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-1 text-xs font-semibold text-white">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-1 text-xs font-semibold text-black">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-lg font-semibold text-foreground">{tier.name}</h3>
+                <h3 className="text-lg font-bold text-foreground">{tier.name}</h3>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-4xl font-semibold tracking-[-0.02em] text-foreground">
+                  <span className="text-4xl font-bold tracking-tight text-foreground">
                     {displayPrice}
                   </span>
                   <span className="text-sm text-muted">
@@ -202,7 +202,7 @@ export default function PricingPage() {
                   onClick={() => handleClick(tier.key)}
                   className={`mt-8 w-full cursor-pointer rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 ${
                     tier.highlighted
-                      ? "bg-primary text-white shadow-lg shadow-primary/20 hover:opacity-90"
+                      ? "bg-gradient-to-r from-primary to-accent text-black shadow-lg shadow-primary/20 hover:opacity-90"
                       : "border border-border bg-surface text-foreground hover:bg-surface-light"
                   }`}
                 >

@@ -200,9 +200,9 @@ export default function ABTestPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -226,12 +226,12 @@ export default function ABTestPage() {
             </button>
           </div>
         </div>
-        <div className={`border-t border-border bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
+        <div className={`border-t border-border dark:border-white/[0.06] bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
           <div className="flex flex-col gap-4 px-6 py-4">
             <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
             <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Fixer</Link>
-            <span className="text-sm text-primary font-semibold">A/B Test (current)</span>
+            <span className="text-sm text-primary font-bold">A/B Test (current)</span>
           </div>
         </div>
       </nav>
@@ -240,7 +240,7 @@ export default function ABTestPage() {
       <main className="mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
+          <h1 className="text-3xl font-bold tracking-tight font-display sm:text-4xl text-foreground">
             Prompt{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               A/B Testing
@@ -267,10 +267,10 @@ export default function ABTestPage() {
           <div className={`rounded-2xl p-4 sm:p-6 transition-all duration-500 card-shadow ${
             winner === "A"
               ? "border-2 border-accent/60 bg-accent/5"
-              : "bg-background border border-transparent dark:border-border"
+              : "bg-background border border-transparent dark:border-white/[0.06]"
           }`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base sm:text-lg font-semibold flex items-center gap-2 text-foreground">
+              <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 text-foreground">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 text-xs font-black text-white">
                   A
                 </span>
@@ -310,10 +310,10 @@ export default function ABTestPage() {
           <div className={`rounded-2xl p-4 sm:p-6 transition-all duration-500 card-shadow ${
             winner === "B"
               ? "border-2 border-accent/60 bg-accent/5"
-              : "bg-background border border-transparent dark:border-border"
+              : "bg-background border border-transparent dark:border-white/[0.06]"
           }`}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base sm:text-lg font-semibold flex items-center gap-2 text-foreground">
+              <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 text-foreground">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-xs font-black text-white">
                   B
                 </span>
@@ -355,7 +355,7 @@ export default function ABTestPage() {
           <button
             onClick={handleOptimizeBoth}
             disabled={!promptA.trim() || !promptB.trim() || loading}
-            className="rounded-xl bg-primary px-10 py-4 text-base font-bold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="rounded-xl bg-gradient-to-r from-primary to-accent px-10 py-4 text-base font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             {loading ? (
               <span className="inline-flex items-center gap-3">
@@ -390,7 +390,7 @@ export default function ABTestPage() {
               <div className={`rounded-2xl p-4 sm:p-5 space-y-4 transition-all duration-500 card-shadow ${
                 winner === "A"
                   ? "border-2 border-accent/60 bg-accent/5"
-                  : "bg-background border border-transparent dark:border-border"
+                  : "bg-background border border-transparent dark:border-white/[0.06]"
               }`}>
                 {winner === "A" && (
                   <div className="flex items-center justify-center gap-2 text-yellow-500 font-bold text-sm animate-bounce">
@@ -437,7 +437,7 @@ export default function ABTestPage() {
               <div className={`rounded-2xl p-4 sm:p-5 space-y-4 transition-all duration-500 card-shadow ${
                 winner === "B"
                   ? "border-2 border-accent/60 bg-accent/5"
-                  : "bg-background border border-transparent dark:border-border"
+                  : "bg-background border border-transparent dark:border-white/[0.06]"
               }`}>
                 {winner === "B" && (
                   <div className="flex items-center justify-center gap-2 text-yellow-500 font-bold text-sm animate-bounce">

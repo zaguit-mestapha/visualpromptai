@@ -26,7 +26,7 @@ export default function CookieConsent() {
       style={{ animation: "slideUp 0.5s ease-out" }}
     >
       <style>{`@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>
-      <div className="border-t border-border bg-surface/95 backdrop-blur-xl">
+      <div className="border-t border-border dark:border-white/[0.08] bg-surface-light/95 dark:bg-surface-light/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-4 sm:flex-row sm:px-6">
           <p className="flex-1 text-sm text-muted text-center sm:text-left">
             We use cookies to improve your experience and analyze site traffic. By continuing to use
@@ -35,13 +35,13 @@ export default function CookieConsent() {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               href="/privacy"
-              className="text-sm text-muted hover:text-foreground transition-colors"
+              className="text-sm text-primary hover:underline transition-colors"
             >
               Learn More
             </Link>
             <button
               onClick={accept}
-              className="rounded-lg bg-gradient-to-r from-primary to-accent px-5 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95"
+              className="rounded-lg bg-gradient-to-r from-primary to-accent px-5 py-2 text-sm font-bold text-black transition-all hover:opacity-90 active:scale-95"
             >
               Accept
             </button>

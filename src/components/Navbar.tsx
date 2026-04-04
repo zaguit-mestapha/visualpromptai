@@ -8,9 +8,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <a href="#" className="flex items-center gap-2.5 text-xl font-semibold tracking-[-0.02em]">
+        <a href="#" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
           <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
           <span className="text-foreground">
             Visual<span className="text-primary">Prompt</span>AI
@@ -61,7 +61,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`border-t border-border bg-background/95 backdrop-blur-xl md:hidden mobile-menu-enter ${mobileOpen ? "open" : ""}`}
+        className={`border-t border-border dark:border-white/[0.08] bg-background/95 backdrop-blur-xl md:hidden mobile-menu-enter ${mobileOpen ? "open" : ""}`}
       >
         <div className="flex flex-col gap-4 px-6 py-4">
           <a href="#features" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileOpen(false)}>
@@ -85,7 +85,7 @@ export default function Navbar() {
           <a href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileOpen(false)}>
             A/B Test
           </a>
-          <div className="pt-2 border-t border-border">
+          <div className="pt-2 border-t border-border dark:border-white/[0.08]">
             <UserMenu />
           </div>
         </div>

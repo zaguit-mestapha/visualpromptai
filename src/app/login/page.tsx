@@ -46,9 +46,9 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Nav */}
-      <nav className="border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -60,7 +60,7 @@ export default function LoginPage() {
       <div className="flex flex-1 items-center justify-center px-4 py-12">
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-semibold tracking-[-0.02em] text-foreground">
+            <h1 className="text-2xl font-bold tracking-tight font-display text-foreground">
               Welcome back
             </h1>
             <p className="mt-2 text-sm text-muted">
@@ -131,7 +131,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+              className="w-full rounded-xl bg-gradient-to-r from-primary to-accent px-4 py-3 text-sm font-semibold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>

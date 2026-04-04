@@ -22,7 +22,7 @@ function ScoreRing({ score, size = 72 }: { score: number; size?: number }) {
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
   const color =
-    score >= 75 ? "#00C9A7" : score >= 50 ? "#F59E0B" : "#EF4444";
+    score >= 75 ? "#ADFF2F" : score >= 50 ? "#EAB308" : "#EF4444";
   const center = size / 2;
 
   return (
@@ -142,9 +142,9 @@ function FixerPageInner() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -155,7 +155,7 @@ function FixerPageInner() {
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
               A/B Test
             </Link>
-            <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
+            <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-bold text-accent">
               Fixer
             </span>
             <Link href="/prompt-scoring" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
@@ -185,7 +185,7 @@ function FixerPageInner() {
             <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
-            <span className="text-sm text-accent font-semibold">Fixer (current)</span>
+            <span className="text-sm text-accent font-bold">Fixer (current)</span>
             <Link href="/prompt-scoring" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Scoring</Link>
             <Link href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Image to Prompt</Link>
           </div>
@@ -196,9 +196,9 @@ function FixerPageInner() {
       <main className="mx-auto max-w-5xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
+          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
             Prompt{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-primary">
               Fixer
             </span>
           </h1>
@@ -209,8 +209,8 @@ function FixerPageInner() {
         </div>
 
         {/* Input section */}
-        <div className="mt-8 sm:mt-10 rounded-2xl bg-background p-4 sm:p-8 card-shadow border border-transparent dark:border-border">
-          <label htmlFor="prompt" className="mb-2 block text-sm font-semibold text-foreground">
+        <div className="mt-8 sm:mt-10 rounded-2xl bg-background p-4 sm:p-8 card-shadow border border-border dark:border-white/[0.06]">
+          <label htmlFor="prompt" className="mb-2 block text-sm font-bold text-foreground">
             Your prompt
           </label>
           <textarea
@@ -224,7 +224,7 @@ function FixerPageInner() {
 
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex-1 sm:max-w-[220px]">
-              <label htmlFor="model" className="mb-2 block text-sm font-semibold text-foreground">
+              <label htmlFor="model" className="mb-2 block text-sm font-bold text-foreground">
                 Target model
               </label>
               <select
@@ -246,7 +246,7 @@ function FixerPageInner() {
             <button
               onClick={handleFix}
               disabled={loading || !prompt.trim()}
-              className="rounded-xl bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -274,9 +274,9 @@ function FixerPageInner() {
         {result && (
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {/* Original */}
-            <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-transparent dark:border-border">
+            <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-border dark:border-white/[0.06]">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-muted">
                   Original
                 </h2>
                 <CopyButton text={result.original} />
@@ -287,7 +287,7 @@ function FixerPageInner() {
               <div className="mt-6 flex items-center gap-3 border-t border-border pt-4">
                 <ScoreRing score={result.originalScore} size={56} />
                 <div>
-                  <p className="text-sm font-semibold text-foreground">Quality Score</p>
+                  <p className="text-sm font-bold text-foreground">Quality Score</p>
                   <p className="text-xs text-muted">
                     {result.originalScore < 50
                       ? "Needs improvement"
@@ -302,7 +302,7 @@ function FixerPageInner() {
             {/* Fixed */}
             <div className="rounded-2xl bg-background p-4 sm:p-6 border-2 border-primary/20 card-shadow">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-accent">
                   Optimized for {result.model}
                 </h2>
                 <CopyButton text={result.fixed} />
@@ -313,7 +313,7 @@ function FixerPageInner() {
               <div className="mt-6 flex items-center gap-3 border-t border-border pt-4">
                 <ScoreRing score={result.fixedScore} size={56} />
                 <div>
-                  <p className="text-sm font-semibold text-foreground">Quality Score</p>
+                  <p className="text-sm font-bold text-foreground">Quality Score</p>
                   <p className="text-xs text-muted">
                     {result.fixedScore >= 75
                       ? "Ready to generate"
@@ -354,13 +354,13 @@ function FixerPageInner() {
         <div className="mt-12 space-y-3">
           <div className="rounded-xl border border-accent/20 bg-accent/5 px-6 py-4 text-center text-sm text-muted">
             Want to check your prompt&apos;s score first?{" "}
-            <Link href="/prompt-scoring" className="text-accent font-semibold hover:underline">
+            <Link href="/prompt-scoring" className="text-accent font-bold hover:underline">
               Try Prompt Scoring &rarr;
             </Link>
           </div>
           <div className="rounded-xl border border-primary/20 bg-primary/5 px-6 py-4 text-center text-sm text-muted">
             Have an image?{" "}
-            <Link href="/image-to-prompt" className="text-primary font-semibold hover:underline">
+            <Link href="/image-to-prompt" className="text-primary font-bold hover:underline">
               Try our Image to Prompt Generator
             </Link>{" "}
             — Upload any image and get an optimized prompt.
@@ -369,7 +369,7 @@ function FixerPageInner() {
 
         {/* SEO Content: How the AI Prompt Fixer Works */}
         <section className="mt-16 sm:mt-20">
-          <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
             How the AI Prompt Fixer Works
           </h2>
           <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted">
@@ -390,7 +390,7 @@ function FixerPageInner() {
 
         {/* SEO Content: Supported AI Models */}
         <section className="mt-12 sm:mt-16">
-          <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
             Supported AI Models
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -416,7 +416,7 @@ function FixerPageInner() {
                 key={m.name}
                 className="rounded-xl border border-border bg-background p-5 card-shadow"
               >
-                <h3 className="text-sm font-semibold text-foreground">{m.name}</h3>
+                <h3 className="text-sm font-bold text-foreground">{m.name}</h3>
                 <p className="mt-1.5 text-xs text-muted leading-relaxed">{m.desc}</p>
               </div>
             ))}

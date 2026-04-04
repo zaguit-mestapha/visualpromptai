@@ -4,15 +4,15 @@ import Footer from "@/components/Footer";
 export default function DisclaimerPage() {
   return (
     <div className="min-h-screen bg-background">
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
+          <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
             <span className="inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
           <Link
             href="/fixer"
-            className="rounded-lg bg-primary px-4 py-1.5 text-sm font-medium text-white transition-all hover:opacity-90"
+            className="rounded-lg bg-gradient-to-r from-primary to-accent px-4 py-1.5 text-sm font-medium text-black transition-all hover:opacity-90"
           >
             Try Prompt Fixer
           </Link>
@@ -20,12 +20,12 @@ export default function DisclaimerPage() {
       </nav>
 
       <main className="mx-auto max-w-3xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
-        <h1 className="text-3xl font-semibold sm:text-4xl text-foreground">Disclaimer</h1>
+        <h1 className="text-3xl font-bold font-display sm:text-4xl text-foreground">Disclaimer</h1>
         <p className="mt-2 text-sm text-muted">Last updated: April 2026</p>
 
         <div className="mt-8 space-y-8 text-muted leading-relaxed">
           <section>
-            <h2 className="text-xl font-semibold text-foreground">1. General Disclaimer</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">1. General Disclaimer</h2>
             <p className="mt-3">
               The information and tools provided on VisualPromptAI are for general informational and
               creative purposes only. While we strive to provide accurate and useful AI-powered
@@ -34,7 +34,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">2. AI-Generated Content</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">2. AI-Generated Content</h2>
             <p className="mt-3">
               VisualPromptAI uses artificial intelligence to analyze images and optimize prompts.
               AI-generated outputs are suggestions and may not always be perfectly accurate. Users
@@ -45,7 +45,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">3. Third-Party AI Models</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">3. Third-Party AI Models</h2>
             <p className="mt-3">
               VisualPromptAI generates prompts optimized for third-party AI image generation
               platforms including but not limited to Midjourney, DALL-E, Stable Diffusion, Flux,
@@ -55,7 +55,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">4. No Warranty</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">4. No Warranty</h2>
             <p className="mt-3">
               Our tools and services are provided &ldquo;as is&rdquo; without any warranty of any
               kind, express or implied. We do not warrant that our services will be uninterrupted,
@@ -64,7 +64,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">5. Limitation of Liability</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">5. Limitation of Liability</h2>
             <p className="mt-3">
               VisualPromptAI shall not be liable for any indirect, incidental, special,
               consequential, or punitive damages resulting from your use of or inability to use our
@@ -73,7 +73,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">6. External Links</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">6. External Links</h2>
             <p className="mt-3">
               Our website may contain links to third-party websites. We are not responsible for the
               content or privacy practices of these external sites.
@@ -81,7 +81,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">7. Changes to This Disclaimer</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">7. Changes to This Disclaimer</h2>
             <p className="mt-3">
               We reserve the right to update this disclaimer at any time. Changes will be posted on
               this page with an updated revision date.
@@ -89,7 +89,7 @@ export default function DisclaimerPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground">8. Contact</h2>
+            <h2 className="text-xl font-bold font-display text-foreground">8. Contact</h2>
             <p className="mt-3">
               If you have questions about this disclaimer, contact us at{" "}
               <a href="mailto:hello@visualpromptai.com" className="text-primary hover:underline">

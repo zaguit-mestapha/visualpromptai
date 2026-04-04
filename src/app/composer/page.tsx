@@ -209,9 +209,9 @@ export default function ComposerPage() {
   return (
     <div className="min-h-screen bg-surface">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -235,12 +235,12 @@ export default function ComposerPage() {
             </button>
           </div>
         </div>
-        <div className={`border-t border-border bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
+        <div className={`border-t border-border dark:border-white/[0.06] bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
           <div className="flex flex-col gap-4 px-6 py-4">
             <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
             <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Fixer</Link>
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
-            <span className="text-sm text-primary font-semibold">Composer (current)</span>
+            <span className="text-sm text-primary font-bold">Composer (current)</span>
           </div>
         </div>
       </nav>
@@ -248,7 +248,7 @@ export default function ComposerPage() {
 
       <div className="pt-16 min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[320px_1fr_320px]">
         {/* ── LEFT SIDEBAR: Building Blocks ── */}
-        <aside className="md:col-span-1 border-b md:border-b-0 md:border-r border-border bg-background p-4 sm:p-5 md:overflow-y-auto md:h-[calc(100vh-4rem)] md:sticky md:top-16">
+        <aside className="md:col-span-1 border-b md:border-b-0 md:border-r border-border dark:border-white/[0.06] bg-background p-4 sm:p-5 md:overflow-y-auto md:h-[calc(100vh-4rem)] md:sticky md:top-16">
           <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-5">
             Building Blocks
           </h2>
@@ -363,7 +363,7 @@ export default function ComposerPage() {
                     disabled={!prompt.trim()}
                     className={`rounded-lg px-4 py-2 text-xs font-semibold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed ${
                       exportedModel === m
-                        ? "bg-primary text-white shadow-md shadow-primary/20"
+                        ? "bg-gradient-to-r from-primary to-accent text-black shadow-md shadow-primary/20"
                         : "border border-border bg-background text-muted hover:text-foreground"
                     }`}
                   >
@@ -422,7 +422,7 @@ export default function ComposerPage() {
         </main>
 
         {/* ── RIGHT PANEL: Live Preview ── */}
-        <aside className="md:col-span-2 lg:col-span-1 border-t md:border-t lg:border-t-0 lg:border-l border-border bg-background p-4 sm:p-5 md:overflow-y-auto lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16">
+        <aside className="md:col-span-2 lg:col-span-1 border-t md:border-t lg:border-t-0 lg:border-l border-border dark:border-white/[0.06] bg-background p-4 sm:p-5 md:overflow-y-auto lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16">
           <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-4">
             Live Preview
           </h2>
@@ -463,7 +463,7 @@ export default function ComposerPage() {
             <button
               onClick={() => handleCopy(prompt)}
               disabled={!prompt.trim()}
-              className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full rounded-xl bg-gradient-to-r from-primary to-accent px-4 py-3 text-sm font-semibold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {copied ? "Copied!" : "Copy to Clipboard"}
             </button>

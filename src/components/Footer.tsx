@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-border dark:border-white/[0.08] bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
+            <Link href="/" className="flex items-center gap-2 text-lg font-bold">
               <span className="inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent" />
               <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
             </Link>
@@ -18,48 +18,53 @@ export default function Footer() {
 
           {/* Product */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
+            <h4 className="font-display text-sm font-bold uppercase tracking-wider text-muted">
               Product
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><Link href="/#features" className="text-muted hover:text-foreground transition-colors">Features</Link></li>
-              <li><Link href="/#pricing" className="text-muted hover:text-foreground transition-colors">Pricing</Link></li>
+              <li><Link href="/#features" className="text-muted/70 hover:text-foreground transition-colors">Features</Link></li>
+              <li><Link href="/#pricing" className="text-muted/70 hover:text-foreground transition-colors">Pricing</Link></li>
             </ul>
           </div>
 
           {/* Tools */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
+            <h4 className="font-display text-sm font-bold uppercase tracking-wider text-muted">
               Tools
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><Link href="/fixer" className="text-muted hover:text-foreground transition-colors">Prompt Fixer</Link></li>
-              <li><Link href="/image-to-prompt" className="text-muted hover:text-foreground transition-colors">Image to Prompt</Link></li>
-              <li><Link href="/prompt-scoring" className="text-muted hover:text-foreground transition-colors">Prompt Scoring</Link></li>
-              <li><Link href="/composer" className="text-muted hover:text-foreground transition-colors">Visual Composer</Link></li>
+              <li><Link href="/fixer" className="text-muted/70 hover:text-foreground transition-colors">Prompt Fixer</Link></li>
+              <li><Link href="/image-to-prompt" className="text-muted/70 hover:text-foreground transition-colors">Image to Prompt</Link></li>
+              <li><Link href="/prompt-scoring" className="text-muted/70 hover:text-foreground transition-colors">Prompt Scoring</Link></li>
+              <li><Link href="/composer" className="text-muted/70 hover:text-foreground transition-colors">Visual Composer</Link></li>
             </ul>
           </div>
 
           {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/60">
+            <h4 className="font-display text-sm font-bold uppercase tracking-wider text-muted">
               Company
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><Link href="/about" className="text-muted hover:text-foreground transition-colors">About</Link></li>
-              <li><Link href="/contact" className="text-muted hover:text-foreground transition-colors">Contact</Link></li>
-              <li><Link href="/privacy" className="text-muted hover:text-foreground transition-colors">Privacy</Link></li>
-              <li><Link href="/terms" className="text-muted hover:text-foreground transition-colors">Terms</Link></li>
-              <li><Link href="/disclaimer" className="text-muted hover:text-foreground transition-colors">Disclaimer</Link></li>
+              <li><Link href="/about" className="text-muted/70 hover:text-foreground transition-colors">About</Link></li>
+              <li><Link href="/contact" className="text-muted/70 hover:text-foreground transition-colors">Contact</Link></li>
+              <li><Link href="/privacy" className="text-muted/70 hover:text-foreground transition-colors">Privacy</Link></li>
+              <li><Link href="/terms" className="text-muted/70 hover:text-foreground transition-colors">Terms</Link></li>
+              <li><Link href="/disclaimer" className="text-muted/70 hover:text-foreground transition-colors">Disclaimer</Link></li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
-          <p className="text-xs text-muted">
-            &copy; {new Date().getFullYear()} VisualPromptAI. All rights
-            reserved.
-          </p>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border dark:border-white/[0.08] pt-8 sm:flex-row">
+          <div className="flex items-center gap-3">
+            <p className="text-xs text-muted">
+              &copy; {new Date().getFullYear()} VisualPromptAI. All rights
+              reserved.
+            </p>
+            <span className="hidden sm:inline rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold text-primary">
+              Built with AI
+            </span>
+          </div>
           <div className="flex gap-4">
             <a href="#" className="text-muted hover:text-foreground transition-colors" aria-label="Twitter">
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

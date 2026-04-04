@@ -69,9 +69,9 @@ export default function PromptPageClient({
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -94,7 +94,7 @@ export default function PromptPageClient({
             </button>
           </div>
         </div>
-        <div className={`border-t border-border bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
+        <div className={`border-t border-border dark:border-white/[0.06] bg-background/95 backdrop-blur-xl sm:hidden mobile-menu-enter ${mobileMenuOpen ? "open" : ""}`}>
           <div className="flex flex-col gap-4 px-6 py-4">
             <Link href="/" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
@@ -110,7 +110,7 @@ export default function PromptPageClient({
           <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary uppercase tracking-wider">
             {modelName} Prompts
           </div>
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl md:text-5xl text-foreground">
+          <h1 className="text-3xl font-bold tracking-tight font-display sm:text-4xl md:text-5xl text-foreground">
             Best {modelName} Prompts{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               2026
@@ -124,7 +124,7 @@ export default function PromptPageClient({
         {/* Model Features */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {features.map((f) => (
-            <div key={f} className="rounded-2xl bg-background p-5 card-shadow border border-transparent dark:border-border text-center">
+            <div key={f} className="rounded-2xl bg-background p-5 card-shadow border border-transparent dark:border-white/[0.06] text-center">
               <svg className="mx-auto h-5 w-5 text-accent mb-2" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
               </svg>
@@ -139,7 +139,7 @@ export default function PromptPageClient({
             onClick={() => setActiveCategory("all")}
             className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${
               activeCategory === "all"
-                ? "bg-primary text-white shadow-md shadow-primary/20"
+                ? "bg-gradient-to-r from-primary to-accent text-black shadow-md shadow-primary/20"
                 : "border border-border bg-surface text-muted hover:text-foreground"
             }`}
           >
@@ -153,7 +153,7 @@ export default function PromptPageClient({
                 onClick={() => setActiveCategory(cat)}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${
                   activeCategory === cat
-                    ? "bg-primary text-white shadow-md shadow-primary/20"
+                    ? "bg-gradient-to-r from-primary to-accent text-black shadow-md shadow-primary/20"
                     : "border border-border bg-surface text-muted hover:text-foreground"
                 }`}
               >
@@ -168,7 +168,7 @@ export default function PromptPageClient({
           {filteredPrompts.map((prompt, i) => (
             <article
               key={i}
-              className="rounded-2xl bg-background p-5 sm:p-6 card-shadow card-shadow-hover border border-transparent dark:border-border transition-all duration-300 hover:scale-[1.01]"
+              className="rounded-2xl bg-background p-5 sm:p-6 card-shadow card-shadow-hover border border-transparent dark:border-white/[0.06] transition-all duration-300 hover:scale-[1.01]"
             >
               <div className="flex items-center justify-between mb-3">
                 <span className="rounded-md bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
@@ -199,7 +199,7 @@ export default function PromptPageClient({
 
         {/* CTA Section */}
         <div className="mt-16 sm:mt-20 rounded-2xl bg-gradient-to-br from-primary to-accent p-8 sm:p-12 text-center text-white">
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em]">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight font-display">
             Build Your Own {modelName} Prompts
           </h2>
           <p className="mt-3 text-white/80 max-w-xl mx-auto leading-relaxed">
@@ -246,9 +246,9 @@ export default function PromptPageClient({
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-surface">
+      <footer className="border-t border-border dark:border-white/[0.06] bg-surface">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 text-center">
-          <Link href="/" className="text-sm font-semibold text-foreground">
+          <Link href="/" className="text-sm font-bold text-foreground">
             Visual<span className="text-primary">Prompt</span>AI
           </Link>
           <p className="mt-2 text-xs text-muted">

@@ -105,7 +105,7 @@ function ScoreRing({ score, size = 72 }: { score: number; size?: number }) {
   const radius = (size - 16) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (animated / 100) * circumference;
-  const color = animated >= 75 ? "#00C9A7" : animated >= 50 ? "#F59E0B" : "#EF4444";
+  const color = animated >= 75 ? "#ADFF2F" : animated >= 50 ? "#F59E0B" : "#EF4444";
   const center = size / 2;
 
   useEffect(() => {
@@ -297,9 +297,9 @@ export default function ImageToPromptPage() {
       />
 
       {/* ── Nav ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -307,7 +307,7 @@ export default function ImageToPromptPage() {
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">Composer</Link>
             <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors">Fixer</Link>
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors">A/B Test</Link>
-            <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Image to Prompt</span>
+            <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-bold text-accent">Image to Prompt</span>
             <ThemeToggle />
             <UserMenu />
           </div>
@@ -326,7 +326,7 @@ export default function ImageToPromptPage() {
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
             <Link href="/fixer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Fixer</Link>
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
-            <span className="text-sm text-accent font-semibold">Image to Prompt (current)</span>
+            <span className="text-sm text-accent font-bold">Image to Prompt (current)</span>
           </div>
         </div>
       </nav>
@@ -334,9 +334,9 @@ export default function ImageToPromptPage() {
       <main className="mx-auto max-w-7xl px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24">
         {/* ── Hero ── */}
         <div className="text-center max-w-3xl mx-auto">
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-5xl text-foreground">
+          <h1 className="text-3xl font-display font-bold tracking-tight sm:text-5xl text-foreground">
             Free{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-primary">
               Image to Prompt
             </span>{" "}
             AI Generator
@@ -350,8 +350,8 @@ export default function ImageToPromptPage() {
         {/* ── Tool Section ── */}
         <div ref={toolRef} id="tool" className="mt-12 grid gap-6 lg:grid-cols-2">
           {/* Left: Upload */}
-          <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-transparent dark:border-border">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted mb-4">
+          <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-border dark:border-white/[0.06]">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-muted mb-4">
               Upload Image
             </h2>
             {imagePreview ? (
@@ -410,13 +410,13 @@ export default function ImageToPromptPage() {
           </div>
 
           {/* Right: Settings + Output */}
-          <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-transparent dark:border-border">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted mb-4">
+          <div className="rounded-2xl bg-background p-4 sm:p-6 card-shadow border border-border dark:border-white/[0.06]">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-muted mb-4">
               Settings
             </h2>
 
             {/* Model selector */}
-            <label className="mb-1.5 block text-sm font-semibold text-foreground">
+            <label className="mb-1.5 block text-sm font-bold text-foreground">
               Target Model
             </label>
             <select
@@ -430,7 +430,7 @@ export default function ImageToPromptPage() {
             </select>
 
             {/* Style selector */}
-            <label className="mt-4 mb-2 block text-sm font-semibold text-foreground">
+            <label className="mt-4 mb-2 block text-sm font-bold text-foreground">
               Prompt Style
             </label>
             <div className="flex gap-2">
@@ -440,7 +440,7 @@ export default function ImageToPromptPage() {
                   onClick={() => setStyle(s)}
                   className={`flex-1 rounded-lg py-2 text-sm font-medium transition-all cursor-pointer ${
                     style === s
-                      ? "bg-primary text-white shadow-sm"
+                      ? "bg-primary text-black shadow-sm"
                       : "bg-surface border border-border text-muted hover:text-foreground"
                   }`}
                 >
@@ -453,7 +453,7 @@ export default function ImageToPromptPage() {
             <button
               onClick={handleGenerate}
               disabled={!image || loading}
-              className="mt-6 w-full rounded-xl bg-gradient-to-r from-primary to-accent py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="mt-6 w-full rounded-xl bg-gradient-to-r from-primary to-accent py-3.5 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -481,7 +481,7 @@ export default function ImageToPromptPage() {
                 {/* Generated prompt */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-foreground">
+                    <h3 className="text-sm font-bold text-foreground">
                       Generated Prompt
                     </h3>
                     <CopyButton text={result.prompt} />
@@ -495,7 +495,7 @@ export default function ImageToPromptPage() {
                 {result.negativePrompt && (
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-sm font-semibold text-foreground">
+                      <h3 className="text-sm font-bold text-foreground">
                         Negative Prompt
                       </h3>
                       <CopyButton text={result.negativePrompt} />
@@ -543,7 +543,7 @@ export default function ImageToPromptPage() {
                 <div className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4">
                   <ScoreRing score={result.score} size={64} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-foreground">
+                    <p className="text-sm font-bold text-foreground">
                       Quality Score
                     </p>
                     {result.tips.length > 0 && (
@@ -590,7 +590,7 @@ export default function ImageToPromptPage() {
 
         {/* ── How It Works ── */}
         <section className="mt-20 sm:mt-28">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center text-2xl font-display font-bold tracking-tight sm:text-3xl text-foreground">
             How It Works
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -629,12 +629,12 @@ export default function ImageToPromptPage() {
             ].map((s) => (
               <div
                 key={s.step}
-                className="rounded-2xl bg-background p-6 sm:p-8 card-shadow border border-transparent dark:border-border text-center"
+                className="rounded-2xl bg-background p-6 sm:p-8 card-shadow border border-border dark:border-white/[0.06] text-center"
               >
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   {s.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">{s.title}</h3>
+                <h3 className="text-lg font-bold text-foreground">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted">{s.desc}</p>
               </div>
             ))}
@@ -643,7 +643,7 @@ export default function ImageToPromptPage() {
 
         {/* ── Supported Models ── */}
         <section className="mt-20 sm:mt-28">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center text-2xl font-display font-bold tracking-tight sm:text-3xl text-foreground">
             Supported AI Models
           </h2>
           <p className="mt-3 text-center text-muted">
@@ -653,12 +653,12 @@ export default function ImageToPromptPage() {
             {modelCards.map((m) => (
               <div
                 key={m.name}
-                className="rounded-xl bg-background p-5 card-shadow border border-transparent dark:border-border hover:scale-[1.02] transition-all"
+                className="rounded-xl bg-background p-5 card-shadow border border-border dark:border-white/[0.06] hover:scale-[1.02] transition-all"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 text-sm font-bold text-primary">
                   {m.name.charAt(0)}
                 </div>
-                <h3 className="text-sm font-semibold text-foreground">{m.name}</h3>
+                <h3 className="text-sm font-bold text-foreground">{m.name}</h3>
                 <p className="mt-1 text-xs text-muted leading-relaxed">{m.desc}</p>
               </div>
             ))}
@@ -667,7 +667,7 @@ export default function ImageToPromptPage() {
 
         {/* ── Use Cases ── */}
         <section className="mt-20 sm:mt-28">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center text-2xl font-display font-bold tracking-tight sm:text-3xl text-foreground">
             Use Cases
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -691,9 +691,9 @@ export default function ImageToPromptPage() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="rounded-2xl bg-background p-6 sm:p-8 card-shadow border border-transparent dark:border-border"
+                className="rounded-2xl bg-background p-6 sm:p-8 card-shadow border border-border dark:border-white/[0.06]"
               >
-                <h3 className="text-lg font-semibold text-foreground">{c.title}</h3>
+                <h3 className="text-lg font-bold text-foreground">{c.title}</h3>
                 <p className="mt-2 text-sm text-muted leading-relaxed">{c.desc}</p>
               </div>
             ))}
@@ -702,7 +702,7 @@ export default function ImageToPromptPage() {
 
         {/* ── FAQ ── */}
         <section className="mt-20 sm:mt-28 max-w-3xl mx-auto">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center text-2xl font-display font-bold tracking-tight sm:text-3xl text-foreground">
             Frequently Asked Questions
           </h2>
           <div className="mt-10 space-y-3">
@@ -711,7 +711,7 @@ export default function ImageToPromptPage() {
                 key={f.q}
                 className="group rounded-xl border border-border bg-background overflow-hidden"
               >
-                <summary className="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-semibold text-foreground transition-colors hover:text-primary">
+                <summary className="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-bold text-foreground transition-colors hover:text-primary">
                   {f.q}
                   <svg
                     className="h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-180"
@@ -733,7 +733,7 @@ export default function ImageToPromptPage() {
 
         {/* ── Final CTA ── */}
         <section className="mt-20 sm:mt-28 text-center">
-          <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-2xl font-display font-bold tracking-tight sm:text-3xl text-foreground">
             Ready to build better prompts?
           </h2>
           <p className="mt-3 text-muted">
@@ -742,13 +742,13 @@ export default function ImageToPromptPage() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={() => toolRef.current?.scrollIntoView({ behavior: "smooth" })}
-              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
+              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95 cursor-pointer"
             >
               Try Image to Prompt — Free
             </button>
             <Link
               href="/composer"
-              className="rounded-xl border border-border bg-surface px-8 py-3 text-sm font-semibold text-foreground transition-all hover:bg-surface-light active:scale-95"
+              className="rounded-xl border border-border bg-surface px-8 py-3 text-sm font-bold text-foreground transition-all hover:bg-surface-light active:scale-95"
             >
               Explore Visual Composer
             </Link>

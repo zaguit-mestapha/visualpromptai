@@ -71,9 +71,9 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2.5 text-xl font-semibold tracking-[-0.02em]">
+          <Link href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight">
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">Visual<span className="text-primary">Prompt</span>AI</span>
           </Link>
@@ -87,7 +87,7 @@ export default function DashboardPage() {
       <main className="mx-auto max-w-5xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* Welcome */}
         <div className="mb-10">
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] text-foreground">
+          <h1 className="text-3xl font-bold tracking-tight font-display text-foreground">
             Welcome back, {displayName}
           </h1>
           <p className="mt-2 text-muted">
@@ -97,25 +97,25 @@ export default function DashboardPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          <div className="rounded-2xl bg-background p-6 card-shadow border border-transparent dark:border-border">
+          <div className="rounded-2xl bg-background p-6 card-shadow border border-transparent dark:border-white/[0.06]">
             <p className="text-xs font-bold uppercase tracking-widest text-muted mb-1">
               Prompts Today
             </p>
-            <p className="text-3xl font-semibold tracking-[-0.02em] text-foreground">0</p>
+            <p className="text-3xl font-bold tracking-tight text-foreground">0</p>
             <p className="mt-1 text-xs text-muted">of 5 free daily prompts</p>
           </div>
-          <div className="rounded-2xl bg-background p-6 card-shadow border border-transparent dark:border-border">
+          <div className="rounded-2xl bg-background p-6 card-shadow border border-transparent dark:border-white/[0.06]">
             <p className="text-xs font-bold uppercase tracking-widest text-muted mb-1">
               Total Prompts
             </p>
-            <p className="text-3xl font-semibold tracking-[-0.02em] text-foreground">0</p>
+            <p className="text-3xl font-bold tracking-tight text-foreground">0</p>
             <p className="mt-1 text-xs text-muted">prompts created</p>
           </div>
-          <div className="rounded-2xl bg-background p-6 card-shadow border border-transparent dark:border-border">
+          <div className="rounded-2xl bg-background p-6 card-shadow border border-transparent dark:border-white/[0.06]">
             <p className="text-xs font-bold uppercase tracking-widest text-muted mb-1">
               Plan
             </p>
-            <p className="text-3xl font-semibold tracking-[-0.02em] text-foreground">Free</p>
+            <p className="text-3xl font-bold tracking-tight text-foreground">Free</p>
             <div className="mt-2 flex flex-wrap gap-2">
               <Link href="/pricing" className="inline-block text-xs text-primary font-semibold hover:underline">
                 Upgrade to Pro
@@ -142,7 +142,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Links */}
-        <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-4">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-4 font-display">
           Quick Actions
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -150,12 +150,12 @@ export default function DashboardPage() {
             <Link
               key={link.href}
               href={link.href}
-              className="group rounded-2xl bg-background p-6 card-shadow card-shadow-hover border border-transparent dark:border-border transition-all duration-300 hover:scale-[1.02]"
+              className="group rounded-2xl bg-background p-6 card-shadow card-shadow-hover border border-transparent dark:border-white/[0.06] transition-all duration-300 hover:scale-[1.02]"
             >
               <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${link.color} text-white`}>
                 {link.icon}
               </div>
-              <h3 className="text-base font-semibold text-foreground">{link.title}</h3>
+              <h3 className="text-base font-bold text-foreground">{link.title}</h3>
               <p className="mt-1 text-sm text-muted">{link.description}</p>
             </Link>
           ))}

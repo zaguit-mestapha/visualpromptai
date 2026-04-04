@@ -75,15 +75,16 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="relative py-20 sm:py-28">
+      <div className="section-divider mx-auto max-w-4xl mb-20" />
       {/* Subtle glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[700px] rounded-full bg-primary/5 dark:bg-primary/10 blur-[150px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[700px] rounded-full bg-primary/3 dark:bg-primary/5 blur-[150px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+          <p className="text-sm font-bold uppercase tracking-widest text-primary">
             Pricing
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
             Simple, transparent pricing
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted leading-relaxed">
@@ -97,18 +98,18 @@ export default function Pricing() {
               key={tier.name}
               className={`relative rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
                 tier.highlighted
-                  ? "bg-background card-shadow md:scale-[1.02] border-2 border-primary/30 dark:border-primary/50"
-                  : "bg-background card-shadow border border-transparent dark:border-border hover:scale-[1.02]"
+                  ? "bg-surface card-shadow md:scale-[1.02] border-2 border-primary/40 dark:border-primary/50 shadow-lg shadow-primary/10"
+                  : "bg-surface card-shadow border border-border dark:border-white/[0.06] hover:scale-[1.02] hover:border-primary/30"
               }`}
             >
               {tier.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-1 text-xs font-semibold text-white">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-1 text-xs font-bold text-black">
                   Most Popular
                 </div>
               )}
-              <h3 className="text-lg font-semibold text-foreground">{tier.name}</h3>
+              <h3 className="font-display text-lg font-bold text-foreground">{tier.name}</h3>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-4xl font-semibold tracking-[-0.02em] text-foreground">{tier.price}</span>
+                <span className="font-display text-4xl font-extrabold tracking-tight text-foreground">{tier.price}</span>
                 <span className="text-sm text-muted">{tier.period}</span>
               </div>
               <p className="mt-2 text-sm text-muted">{tier.description}</p>
@@ -117,7 +118,7 @@ export default function Pricing() {
                 {tier.features.map((f) => (
                   <li key={f} className="flex items-start gap-3 text-sm text-foreground/80">
                     <svg
-                      className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={2}
@@ -132,10 +133,10 @@ export default function Pricing() {
 
               <button
                 onClick={() => handleClick(tier.key)}
-                className={`mt-8 w-full cursor-pointer rounded-xl py-3 text-sm font-semibold transition-all active:scale-95 ${
+                className={`mt-8 w-full cursor-pointer rounded-xl py-3 text-sm font-bold transition-all active:scale-95 ${
                   tier.highlighted
-                    ? "bg-primary text-white shadow-lg shadow-primary/20 hover:opacity-90 hover:shadow-primary/30"
-                    : "border border-border bg-surface text-foreground hover:bg-surface-light"
+                    ? "bg-gradient-to-r from-primary to-accent text-black shadow-lg shadow-primary/20 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/25"
+                    : "border border-border dark:border-white/[0.06] bg-surface text-foreground hover:border-primary hover:text-primary"
                 }`}
               >
                 {tier.cta}

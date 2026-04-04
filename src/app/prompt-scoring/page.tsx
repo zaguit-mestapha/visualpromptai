@@ -191,9 +191,9 @@ function ScoreBar({
         : "text-[#E24B4A]";
 
   return (
-    <div className="rounded-xl bg-background p-4 card-shadow border border-transparent dark:border-border">
+    <div className="rounded-xl bg-background p-4 card-shadow border border-border dark:border-white/[0.06]">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-semibold text-foreground">{label}</span>
+        <span className="text-sm font-bold text-foreground">{label}</span>
         <span className={`text-sm font-bold ${textColor}`}>{score}</span>
       </div>
       <div className="h-2 rounded-full bg-surface overflow-hidden">
@@ -314,11 +314,11 @@ function PromptScoringPageInner() {
       <JsonLd />
 
       {/* ── Nav ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border dark:border-white/[0.08] bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link
             href="/"
-            className="flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-[-0.02em]"
+            className="flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight"
           >
             <span className="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent" />
             <span className="text-foreground">
@@ -424,9 +424,9 @@ function PromptScoringPageInner() {
       <main className="mx-auto max-w-5xl px-4 sm:px-6 pt-24 sm:pt-28 pb-16 sm:pb-20">
         {/* ── Hero ── */}
         <div className="text-center">
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl text-foreground">
+          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
             Free AI Prompt{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-primary">
               Scoring Tool
             </span>
           </h1>
@@ -438,11 +438,11 @@ function PromptScoringPageInner() {
         </div>
 
         {/* ── Tool Section ── */}
-        <div className="mt-8 sm:mt-10 rounded-2xl bg-background p-4 sm:p-8 card-shadow border border-transparent dark:border-border">
+        <div className="mt-8 sm:mt-10 rounded-2xl bg-background p-4 sm:p-8 card-shadow border border-border dark:border-white/[0.06]">
           <div className="flex items-center justify-between mb-2">
             <label
               htmlFor="prompt"
-              className="block text-sm font-semibold text-foreground"
+              className="block text-sm font-bold text-foreground"
             >
               Your prompt
             </label>
@@ -466,7 +466,7 @@ function PromptScoringPageInner() {
               <div className="sm:w-[200px]">
                 <label
                   htmlFor="model"
-                  className="mb-2 block text-sm font-semibold text-foreground"
+                  className="mb-2 block text-sm font-bold text-foreground"
                 >
                   Target model
                 </label>
@@ -495,7 +495,7 @@ function PromptScoringPageInner() {
             <button
               onClick={handleScore}
               disabled={loading || !prompt.trim()}
-              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 cursor-pointer"
+              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 hover:shadow-primary/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 cursor-pointer"
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -562,8 +562,8 @@ function PromptScoringPageInner() {
             {/* Strengths & Weaknesses */}
             <div className="grid gap-6 md:grid-cols-2">
               {/* Strengths */}
-              <div className="rounded-2xl bg-background p-5 sm:p-6 card-shadow border border-transparent dark:border-border">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-[#639922] mb-4">
+              <div className="rounded-2xl bg-background p-5 sm:p-6 card-shadow border border-border dark:border-white/[0.06]">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[#639922] mb-4">
                   Strengths
                 </h3>
                 <ul className="space-y-3">
@@ -589,8 +589,8 @@ function PromptScoringPageInner() {
               </div>
 
               {/* Weaknesses */}
-              <div className="rounded-2xl bg-background p-5 sm:p-6 card-shadow border border-transparent dark:border-border">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EF9F27] mb-4">
+              <div className="rounded-2xl bg-background p-5 sm:p-6 card-shadow border border-border dark:border-white/[0.06]">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[#EF9F27] mb-4">
                   Weaknesses
                 </h3>
                 <ul className="space-y-3">
@@ -618,14 +618,14 @@ function PromptScoringPageInner() {
 
             {/* Improvement Tips */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted mb-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-muted mb-4">
                 Improvement Tips
               </h3>
               <div className="grid gap-3 sm:grid-cols-3">
                 {result.tips.map((tip, i) => (
                   <div
                     key={i}
-                    className="rounded-xl bg-background p-4 card-shadow border border-transparent dark:border-border"
+                    className="rounded-xl bg-background p-4 card-shadow border border-border dark:border-white/[0.06]"
                   >
                     <div className="flex items-start gap-3">
                       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
@@ -655,19 +655,19 @@ function PromptScoringPageInner() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href={`/fixer?prompt=${encodeURIComponent(prompt)}`}
-                className="rounded-xl bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95"
+                className="rounded-xl bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95"
               >
                 Fix This Prompt &rarr;
               </Link>
               <button
                 onClick={handleReset}
-                className="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-surface-light active:scale-95 cursor-pointer"
+                className="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-bold text-foreground transition-all hover:bg-surface-light active:scale-95 cursor-pointer"
               >
                 Score Another Prompt
               </button>
               <Link
                 href="/image-to-prompt"
-                className="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-surface-light active:scale-95"
+                className="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-bold text-foreground transition-all hover:bg-surface-light active:scale-95"
               >
                 Try Image to Prompt &rarr;
               </Link>
@@ -701,7 +701,7 @@ function PromptScoringPageInner() {
 
         {/* ── How Scoring Works ── */}
         <section className="mt-20 sm:mt-28">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
             How Scoring Works
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -769,12 +769,12 @@ function PromptScoringPageInner() {
             ].map((s) => (
               <div
                 key={s.step}
-                className="rounded-2xl bg-background p-6 sm:p-8 card-shadow border border-transparent dark:border-border text-center"
+                className="rounded-2xl bg-background p-6 sm:p-8 card-shadow border border-border dark:border-white/[0.06] text-center"
               >
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   {s.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="font-display text-lg font-bold text-foreground">
                   {s.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted">{s.desc}</p>
@@ -785,7 +785,7 @@ function PromptScoringPageInner() {
 
         {/* ── Scoring Criteria Explained ── */}
         <section className="mt-20 sm:mt-28">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
             Scoring Criteria Explained
           </h2>
           <p className="mt-3 text-center text-muted">
@@ -795,10 +795,10 @@ function PromptScoringPageInner() {
             {CRITERIA.map((c) => (
               <div
                 key={c.key}
-                className="rounded-xl bg-background p-5 card-shadow border border-transparent dark:border-border"
+                className="rounded-xl bg-background p-5 card-shadow border border-border dark:border-white/[0.06]"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-sm font-semibold text-foreground">
+                  <h3 className="text-sm font-bold text-foreground">
                     {c.label}
                   </h3>
                   <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
@@ -813,7 +813,7 @@ function PromptScoringPageInner() {
 
         {/* ── FAQ ── */}
         <section className="mt-20 sm:mt-28 max-w-3xl mx-auto">
-          <h2 className="text-center text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="text-center font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
             Frequently Asked Questions
           </h2>
           <div className="mt-10 space-y-3">
@@ -822,7 +822,7 @@ function PromptScoringPageInner() {
                 key={f.q}
                 className="group rounded-xl border border-border bg-background overflow-hidden"
               >
-                <summary className="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-semibold text-foreground transition-colors hover:text-primary">
+                <summary className="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-bold text-foreground transition-colors hover:text-primary">
                   {f.q}
                   <svg
                     className="h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-180"
@@ -848,7 +848,7 @@ function PromptScoringPageInner() {
 
         {/* ── Final CTA ── */}
         <section className="mt-20 sm:mt-28 text-center">
-          <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+          <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-foreground">
             Want to go from score to perfect prompt?
           </h2>
           <p className="mt-3 text-muted">
@@ -857,13 +857,13 @@ function PromptScoringPageInner() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/fixer"
-              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95"
+              className="rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-3 text-sm font-bold text-black shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95"
             >
               Fix My Prompt — Free
             </Link>
             <Link
               href="/composer"
-              className="rounded-xl border border-border bg-surface px-8 py-3 text-sm font-semibold text-foreground transition-all hover:bg-surface-light active:scale-95"
+              className="rounded-xl border border-border bg-surface px-8 py-3 text-sm font-bold text-foreground transition-all hover:bg-surface-light active:scale-95"
             >
               Build Visually
             </Link>

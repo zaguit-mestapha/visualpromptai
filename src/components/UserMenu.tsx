@@ -25,7 +25,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/login"
-        className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95"
+        className="rounded-xl border border-primary/50 bg-transparent px-5 py-2.5 text-sm font-bold text-primary transition-all hover:bg-primary hover:text-black active:scale-95"
       >
         Sign In
       </Link>
@@ -53,16 +53,16 @@ export default function UserMenu() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-bold text-black transition-all hover:opacity-90 active:scale-95"
         aria-label="User menu"
       >
         {initials}
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-52 rounded-xl border border-border bg-background p-1.5 shadow-lg animate-in">
-          <div className="px-3 py-2 border-b border-border mb-1">
-            <p className="text-sm font-semibold text-foreground truncate">
+        <div className="absolute right-0 mt-2 w-52 rounded-xl border border-border dark:border-white/[0.08] bg-background p-1.5 shadow-lg animate-in">
+          <div className="px-3 py-2 border-b border-border dark:border-white/[0.08] mb-1">
+            <p className="text-sm font-bold text-foreground truncate">
               {user.user_metadata?.full_name || "User"}
             </p>
             <p className="text-xs text-muted truncate">{user.email}</p>
