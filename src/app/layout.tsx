@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Syne } from "next/font/google";
+import { Space_Grotesk, Belanosima } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -11,9 +11,9 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const syne = Syne({
+const belanosima = Belanosima({
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["400", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
@@ -113,7 +113,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${spaceGrotesk.variable} ${syne.variable} font-body antialiased`}>
+      <body className={`${spaceGrotesk.variable} ${belanosima.variable} font-body antialiased`}>
         <GoogleAnalytics />
         <AuthProvider>
           {children}
