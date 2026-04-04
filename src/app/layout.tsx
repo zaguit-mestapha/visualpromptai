@@ -15,22 +15,22 @@ const SITE_URL = "https://visualpromptai.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "VisualPromptAI - Build AI Image Prompts Visually | Free Prompt Optimizer",
+    default: "VisualPromptAI — Free AI Prompt Builder & Image Prompt Generator",
     template: "%s | VisualPromptAI",
   },
   description:
-    "Stop guessing with AI image prompts. Drag, drop, and optimize prompts for Midjourney, DALL-E, Stable Diffusion, and Flux. Free prompt fixer and visual composer.",
+    "Build, optimize, and test AI image prompts visually. Free prompt generator for Midjourney, DALL-E, Stable Diffusion, Flux & Grok. No login required.",
   keywords: [
-    "AI prompt builder",
-    "midjourney prompt generator",
-    "AI image prompt optimizer",
+    "ai prompt builder",
+    "visual prompt ai",
+    "prompt to image ai",
+    "ai image prompt generator",
+    "prompt generator free",
     "visual prompt builder",
-    "stable diffusion prompts",
+    "midjourney prompt generator",
     "DALL-E prompt generator",
+    "stable diffusion prompts",
     "flux prompt generator",
-    "AI art prompts",
-    "prompt engineering tool",
-    "image generation prompts",
   ],
   authors: [{ name: "VisualPromptAI" }],
   creator: "VisualPromptAI",
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: "VisualPromptAI",
-    title: "VisualPromptAI - Build AI Image Prompts Visually",
+    title: "VisualPromptAI — Free AI Prompt Builder & Image Prompt Generator",
     description:
-      "Stop guessing with AI image prompts. Drag, drop, and optimize prompts for Midjourney, DALL-E, Stable Diffusion, and Flux.",
+      "Build, optimize, and test AI image prompts visually. Free prompt generator for Midjourney, DALL-E, Stable Diffusion, Flux & Grok. No login required.",
     images: [
       {
         url: "/og-image.png",
@@ -65,9 +65,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "VisualPromptAI - Build AI Image Prompts Visually",
+    title: "VisualPromptAI — Free AI Prompt Builder & Image Prompt Generator",
     description:
-      "Stop guessing with AI image prompts. Drag, drop, and optimize prompts for Midjourney, DALL-E, Stable Diffusion, and Flux.",
+      "Build, optimize, and test AI image prompts visually. Free prompt generator for Midjourney, DALL-E, Stable Diffusion, Flux & Grok. No login required.",
     images: ["/og-image.png"],
     creator: "@visualpromptai",
   },

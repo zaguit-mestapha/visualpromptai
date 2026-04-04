@@ -5,7 +5,7 @@ import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 
 function JsonLd() {
-  const structuredData = {
+  const softwareApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "VisualPromptAI",
@@ -45,11 +45,30 @@ function JsonLd() {
     ],
   };
 
+  const webSite = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "VisualPromptAI",
+    url: "https://visualpromptai.com",
+    description: "Visual AI prompt builder and optimizer for image generation",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://visualpromptai.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApp) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+      />
+    </>
   );
 }
 

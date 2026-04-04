@@ -564,12 +564,18 @@ export default function ImageToPromptPage() {
                   Powered by VisualPromptAI
                 </p>
 
-                {/* Upsell banner */}
+                {/* Cross-links */}
                 <Link
                   href="/composer"
                   className="block rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-center text-sm text-primary font-medium hover:bg-primary/10 transition-colors"
                 >
-                  Want to optimize this prompt further? Try our Visual Composer &rarr;
+                  Want to refine your prompt? Use our Visual Composer to drag and drop prompt blocks &rarr;
+                </Link>
+                <Link
+                  href="/fixer"
+                  className="block rounded-xl border border-accent/20 bg-accent/5 px-4 py-3 text-center text-sm text-accent font-medium hover:bg-accent/10 transition-colors"
+                >
+                  Quick text fix? Try our Prompt Fixer — paste and optimize instantly &rarr;
                 </Link>
               </div>
             )}

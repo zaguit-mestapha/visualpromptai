@@ -30,10 +30,9 @@ export default function Hero() {
         </div>
 
         <h1 className="mx-auto max-w-4xl text-3xl font-semibold tracking-[-0.02em] sm:text-5xl md:text-6xl lg:text-7xl text-foreground">
-          Build AI Image Prompts{" "}
-          <br className="sm:hidden" />
+          The Visual{" "}
           <span className="bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">
-            Visually
+            AI Prompt Builder
           </span>
         </h1>
 

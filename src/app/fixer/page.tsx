@@ -158,6 +158,9 @@ function FixerPageInner() {
             <span className="rounded-md border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
               Fixer
             </span>
+            <Link href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
+              Image to Prompt
+            </Link>
             <ThemeToggle />
             <UserMenu />
           </div>
@@ -180,6 +183,7 @@ function FixerPageInner() {
             <Link href="/composer" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Composer</Link>
             <Link href="/ab-test" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>A/B Test</Link>
             <span className="text-sm text-accent font-semibold">Fixer (current)</span>
+            <Link href="/image-to-prompt" className="text-sm font-medium text-muted hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>Image to Prompt</Link>
           </div>
         </div>
       </nav>
@@ -341,7 +345,106 @@ function FixerPageInner() {
             </p>
           </div>
         )}
+
+        {/* Cross-link banner */}
+        <div className="mt-12 rounded-xl border border-primary/20 bg-primary/5 px-6 py-4 text-center text-sm text-muted">
+          Have an image?{" "}
+          <Link href="/image-to-prompt" className="text-primary font-semibold hover:underline">
+            Try our Image to Prompt Generator
+          </Link>{" "}
+          — Upload any image and get an optimized prompt.
+        </div>
+
+        {/* SEO Content: How the AI Prompt Fixer Works */}
+        <section className="mt-16 sm:mt-20">
+          <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+            How the AI Prompt Fixer Works
+          </h2>
+          <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted">
+            <p>
+              Our AI prompt fixer analyzes your raw text and transforms it into an optimized AI image prompt
+              tailored for your chosen model. Whether you need a quick &ldquo;fix my prompt&rdquo; cleanup or a
+              full prompt rewrite, the tool evaluates clarity, specificity, and structure — then rewrites your
+              prompt to maximize output quality. Think of it as a prompt optimizer and prompt generator in one.
+            </p>
+            <p>
+              Each AI model interprets prompts differently. A great Midjourney prompt uses weighted parameters
+              and stylistic keywords, while DALL-E responds best to natural language descriptions. Our fixer
+              automatically adapts syntax, keyword placement, and formatting for whatever platform you choose —
+              so you get the best results without memorizing each model&apos;s quirks.
+            </p>
+          </div>
+        </section>
+
+        {/* SEO Content: Supported AI Models */}
+        <section className="mt-12 sm:mt-16">
+          <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl text-foreground">
+            Supported AI Models
+          </h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                name: "Midjourney",
+                desc: "Optimizes for Midjourney's v6 syntax with weighted parameters (::), aspect ratios, and stylistic keywords that MJ interprets best.",
+              },
+              {
+                name: "DALL-E",
+                desc: "Converts prompts to DALL-E 3's preferred natural language style with detailed scene descriptions, lighting cues, and composition guidance.",
+              },
+              {
+                name: "Stable Diffusion",
+                desc: "Formats prompts with comma-separated tags, emphasis weighting, and optional negative prompts for SDXL and SD 1.5 checkpoints.",
+              },
+              {
+                name: "Flux",
+                desc: "Adapts prompts for Flux's photorealistic strengths — detailed lighting, texture, and scene composition for maximum realism.",
+              },
+            ].map((m) => (
+              <div
+                key={m.name}
+                className="rounded-xl border border-border bg-background p-5 card-shadow"
+              >
+                <h3 className="text-sm font-semibold text-foreground">{m.name}</h3>
+                <p className="mt-1.5 text-xs text-muted leading-relaxed">{m.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-muted">
+            Have an image instead of text?{" "}
+            <Link href="/image-to-prompt" className="text-primary font-medium hover:underline">
+              Try our Image to Prompt Generator &rarr;
+            </Link>
+          </p>
+        </section>
       </main>
+
+      {/* WebApplication Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "VisualPromptAI Prompt Fixer",
+            url: "https://visualpromptai.com/fixer",
+            applicationCategory: "DesignApplication",
+            operatingSystem: "Web",
+            description:
+              "Free AI prompt fixer and optimizer. Paste any AI image prompt and get an optimized version for Midjourney, DALL-E, Stable Diffusion, or Flux.",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            featureList: [
+              "Prompt optimization for Midjourney, DALL-E, Stable Diffusion, Flux",
+              "AI-powered prompt scoring",
+              "Before and after comparison",
+              "One-click copy to clipboard",
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

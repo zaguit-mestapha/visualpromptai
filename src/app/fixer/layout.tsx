@@ -1,29 +1,33 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free AI Prompt Fixer - Optimize Prompts for Midjourney, DALL-E & More",
+  title: "Free AI Prompt Fixer & Generator — Optimize Any Prompt | VisualPromptAI",
   description:
-    "Instantly fix and optimize your AI image prompts. Paste any rough prompt and get an optimized version for Midjourney, DALL-E, Stable Diffusion, or Flux. Free online tool.",
+    "Paste any AI image prompt and get an optimized version instantly. Free prompt generator and fixer for Midjourney, DALL-E, Stable Diffusion, Flux. No login needed.",
   keywords: [
     "AI prompt fixer",
     "prompt optimizer",
+    "prompt generator",
     "fix midjourney prompt",
     "improve AI prompts",
     "prompt enhancer",
     "AI image prompt tool",
+    "fix my prompt",
   ],
   openGraph: {
-    title: "Free AI Prompt Fixer | VisualPromptAI",
+    title: "Free AI Prompt Fixer & Generator — Optimize Any Prompt | VisualPromptAI",
     description:
-      "Instantly fix and optimize your AI image prompts for any model. Free online tool.",
+      "Paste any AI image prompt and get an optimized version instantly. Free prompt generator and fixer for Midjourney, DALL-E, Stable Diffusion, Flux.",
     url: "https://visualpromptai.com/fixer",
+    siteName: "VisualPromptAI",
+    type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free AI Prompt Fixer | VisualPromptAI",
+    title: "Free AI Prompt Fixer & Generator | VisualPromptAI",
     description:
-      "Instantly fix and optimize your AI image prompts for any model.",
+      "Paste any AI image prompt and get an optimized version instantly. Free, no login needed.",
     images: ["/og-image.png"],
   },
   alternates: {
