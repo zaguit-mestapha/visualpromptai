@@ -130,17 +130,23 @@ export async function POST(req: NextRequest) {
           }),
         }
       );
-      if (!res.ok) throw new Error(`${res.status}`);
+      if (!res.ok) {
+        const errorBody = await res.text();
+        console.error(`[image-to-prompt] ${modelId} failed (${res.status}):`, errorBody);
+        throw new Error(`${res.status}: ${errorBody}`);
+      }
       return res.json();
     };
 
     let data;
     try {
-      data = await tryModel("qwen/qwen2.5-vl-72b-instruct:free");
-    } catch {
+      data = await tryModel("google/gemma-3-27b-it:free");
+    } catch (err) {
+      console.error("[image-to-prompt] Primary model failed:", err);
       try {
-        data = await tryModel("meta-llama/llama-4-maverick:free");
-      } catch {
+        data = await tryModel("nvidia/nemotron-nano-2-vl:free");
+      } catch (err2) {
+        console.error("[image-to-prompt] Fallback model failed:", err2);
         return Response.json(
           {
             error:

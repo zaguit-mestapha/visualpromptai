@@ -12,7 +12,14 @@
       "Bash(curl -s http://localhost:3000/api/test-gemini)",
       "Bash(curl:*)",
       "Bash(netstat -ano)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(ls C:/Users/HP/visualpromptai/src/app/favicon*)",
+      "Bash(node -e \"const s = require\\('stripe'\\); console.log\\(s.default?.prototype?.constructor?.name || 'checking...'\\)\")",
+      "Bash(grep -r \"ApiVersion\" C:/Users/HP/visualpromptai/node_modules/stripe/types/*.d.ts)",
+      "Bash(npm audit:*)"
     ]
   }
 }
