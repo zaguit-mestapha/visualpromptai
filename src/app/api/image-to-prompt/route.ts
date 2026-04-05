@@ -22,31 +22,29 @@ function stripCodeFences(text: string): string {
   return cleaned.trim();
 }
 
-function buildPrompt(model: string, style: string): string {
-  return `Analyze this image in extreme detail. Generate an optimized AI image prompt that would recreate this image as closely as possible. Include: subject description, art style, lighting, camera angle, color palette, composition, mood, and technical parameters.
-Target model: ${model}
-Follow these model-specific formatting rules:
-- Midjourney: Use comma-separated keywords. Add --ar [detect aspect ratio]. Add --v 6.1. Use style words like cinematic, photorealistic, hyperdetailed.
-- DALL-E 3: Write as a natural language paragraph. Be very descriptive. Mention art style, lighting, and atmosphere explicitly.
-- Stable Diffusion: Use comma-separated tags. Start with (masterpiece, best quality, highly detailed). Use weight syntax like (keyword:1.2) for emphasis. Also generate a negative prompt.
-- Flux: Write as a flowing natural description. Focus on specific composition, style, and mood. Be precise about spatial relationships.
-- Leonardo AI: Use clean comma-separated tags with style presets. Include resolution and quality tags.
-- Grok: Write as a detailed natural language description similar to DALL-E format but more concise.
-- General: Write a detailed universal prompt that works across models.
+function buildPrompt(style: string): string {
+  const styleGuide =
+    style === "concise"
+      ? "Be concise and focused. Use short, punchy descriptions."
+      : style === "creative"
+      ? "Be creative and evocative. Use imaginative, artistic language."
+      : "Be thorough and detailed. Cover every visual element precisely.";
 
-Prompt style: ${style}
-Return ONLY valid JSON with these fields:
+  return `Analyze this image in extreme detail. Generate a comprehensive natural language description that can be used as an AI image generation prompt. Include: subject description, art style, lighting, camera angle, color palette, composition, mood, and key visual details.
+
+Style guide: ${styleGuide}
+
+Return ONLY valid JSON with these fields (no markdown, no code blocks, just raw JSON):
 {
-"prompt": "the optimized prompt text",
-"negativePrompt": "negative prompt if applicable (Stable Diffusion), empty string otherwise",
+"prompt": "detailed natural language prompt describing the image",
+"negativePrompt": "",
 "detectedSubject": "what the image shows in 1 sentence",
 "detectedStyle": "the art style detected",
 "detectedMood": "the mood/atmosphere",
 "tags": ["array", "of", "relevant", "tags"],
 "score": 85,
 "tips": ["tip 1 for improving", "tip 2", "tip 3"]
-}
-No markdown, no code blocks, just raw JSON.`;
+}`;
 }
 
 export async function POST(req: NextRequest) {
@@ -89,7 +87,7 @@ export async function POST(req: NextRequest) {
     const style =
       STYLES.find((s) => s === promptStyle) || "detailed";
 
-    const systemPrompt = buildPrompt(targetModel, style);
+    const systemPrompt = buildPrompt(style);
 
     // Detect mime type from base64 header or default to jpeg
     let mimeType = "image/jpeg";
@@ -138,23 +136,31 @@ export async function POST(req: NextRequest) {
       return res.json();
     };
 
+    const modelsToTry = [
+      "google/gemma-3-27b-it:free",
+      "meta-llama/llama-4-scout:free",
+      "qwen/qwen2.5-vl-72b-instruct:free",
+      "qwen/qwen2-vl-7b-instruct:free",
+    ];
+
     let data;
-    try {
-      data = await tryModel("google/gemma-3-27b-it:free");
-    } catch (err) {
-      console.error("[image-to-prompt] Primary model failed:", err);
+    let lastError;
+    for (const modelId of modelsToTry) {
       try {
-        data = await tryModel("nvidia/nemotron-nano-2-vl:free");
-      } catch (err2) {
-        console.error("[image-to-prompt] Fallback model failed:", err2);
-        return Response.json(
-          {
-            error:
-              "Our AI is busy right now. Please try again in a moment.",
-          },
-          { status: 502 }
-        );
+        data = await tryModel(modelId);
+        break;
+      } catch (err) {
+        console.error(`[image-to-prompt] Model ${modelId} failed:`, err);
+        lastError = err;
       }
+    }
+
+    if (!data) {
+      console.error("[image-to-prompt] All models failed:", lastError);
+      return Response.json(
+        { error: "Our AI is busy right now. Please try again in a moment." },
+        { status: 502 }
+      );
     }
 
     if (!data.choices?.[0]?.message?.content) {

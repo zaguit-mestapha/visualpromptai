@@ -34,6 +34,26 @@ interface Result {
 }
 
 /* ───── Helpers ───── */
+function toMidjourneyPrompt(naturalPrompt: string): string {
+  // Convert natural language to Midjourney comma-separated keyword format
+  const keywords = naturalPrompt
+    .replace(/[.!?;]/g, ",")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 3)
+    // Remove common filler words that don't add value in MJ prompts
+    .map((s) =>
+      s
+        .replace(/\b(a |an |the |there is |there are |it is |this is )\b/gi, "")
+        .trim()
+    )
+    .filter((s) => s.length > 3)
+    .slice(0, 18)
+    .join(", ");
+
+  return `${keywords}, cinematic, hyperdetailed --ar 1:1 --v 6.1`;
+}
+
 function compressImage(file: File, maxWidth = 1024): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -250,6 +270,9 @@ export default function ImageToPromptPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong");
+      if (model === "Midjourney" && data.prompt) {
+        data.prompt = toMidjourneyPrompt(data.prompt);
+      }
       setResult(data);
     } catch (err) {
       setError(
